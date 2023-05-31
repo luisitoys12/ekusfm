@@ -37,7 +37,7 @@
 						<button class="button_controle waves-effect" id="btn_control" onclick="player()"><i id="icon_control" class="fas fa-play"></i></button>
 						<button class="button_controle waves-effect"><i class="fas fa-volume-up"></i> <i class="fas fa-minus" onclick="abaixar()"></i> <i class="fas fa-plus" onclick="aumentar()"></i></button>
 						<button class="button_controle waves-effect" id="btn_control" onclick="refresh_radio()"><i class="fas fa-sync"></i></button>
-						<audio id="player_audio" data-radio="rbr" data-status="pausada" src="https://ssl.painelcast.com:6964/;"></audio>
+						<audio id="player_audio" data-radio="rbr" data-status="pausada" src="http://centova.playerfullhd.com:8109/stream?type=http&nocache=7"></audio>
 					</div>
 				</div>
 			</div>
@@ -78,7 +78,7 @@
 			let box_locutor = document.querySelector("#infos_radio");
 
 			if (typeof musica_atual == 'object') {
-				marquee.innerHTML = `Rádio Brasileira`;
+				marquee.innerHTML = `Estacionkusfm`;
 			} else {
 				marquee.innerHTML = `${titulo} - ${musica_atual}`;
 			}
@@ -86,7 +86,7 @@
 			locutor_html.innerHTML = locutor;
 			programa_html.innerHTML = programa;
 			ouvintes_html.innerHTML= ouvintes_conectados;
-			box_locutor.style.background = `url(https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=${locutor}&direction=2&head_direction=3&size=l&gesture=sml&action=std) left no-repeat, linear-gradient(152deg, rgb(57,73,171) 0%, rgb(26,35,126) 100%), #1A237E`;
+			box_locutor.style.background = `url(https://www.habbo.es/habbo-imaging/avatarimage?img_format=png&user=${locutor}&direction=2&head_direction=3&size=l&gesture=sml&action=std) left no-repeat, linear-gradient(152deg, rgb(57,73,171) 0%, rgb(26,35,126) 100%), #1A237E`;
 		}
 		var error = function() {
 
