@@ -6,682 +6,475 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="theme-color" content="#453D79">
     
-    <!-- Material Icons y Font Awesome -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/5db384e8a3.js" crossorigin="anonymous"></script>
-    
     <!-- Materialize CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/5db384e8a3.js" crossorigin="anonymous"></script>
+    
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        :root {
-            --primary: #3F51B5;
-            --primary-light: #7986CB;
-            --primary-dark: #1A237E;
-            --accent: #FF4081;
-            --text-light: #FFFFFF;
-            --text-dark: #212121;
-            --background-dark: #121212;
-            --card-dark: #1E1E1E;
-            --border-radius: 8px;
-            --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        
         body {
-            font-family: 'Poppins', 'Roboto', sans-serif;
-            background-color: var(--background-dark);
-            color: var(--text-light);
-            line-height: 1.6;
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212;
+            color: #FFFFFF;
         }
         
         .container {
-            max-width: 1100px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 20px;
         }
         
-        /* Header and Logo */
-        .station-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        
         .img_center {
-            max-width: 240px;
+            max-width: 100%;
             display: block;
             margin: 1rem auto;
-            transition: transform 0.3s ease;
         }
         
-        .img_center:hover {
-            transform: scale(1.05);
+        .infos_radio {
+            background-color: #1E1E1E !important;
+            color: #FFFFFF;
+            border-radius: 8px;
+            padding: 20px 20px 20px 100px !important; /* Más espacio para el avatar */
+            position: relative;
+            margin: 1rem auto;
+            min-height: 80px; /* Asegurar espacio para el avatar */
         }
         
-        /* Grid Layout */
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-gap: 20px;
-            margin-bottom: 20px;
+        /* Estilo específico para el avatar de Habbo */
+        .habbo-avatar {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 80px;
+            height: 80px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center left;
         }
         
-        .grid-item {
-            background-color: var(--card-dark);
-            border-radius: var(--border-radius);
+        .wrapper_radio {
+            background-color: #1E1E1E;
+            border-radius: 8px;
             padding: 15px;
-            box-shadow: var(--box-shadow);
+            margin-top: 20px;
         }
         
-        @media (max-width: 900px) {
-            .grid-container {
-                grid-template-columns: 1fr 1fr;
-            }
+        .marquee_wrapper {
+            overflow: hidden;
+            padding: 8px 0;
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 4px;
         }
         
-        @media (max-width: 600px) {
-            .grid-container {
-                grid-template-columns: 1fr;
-            }
+        .marquee {
+            color: #FFFFFF;
+            font-size: 16px;
         }
         
-        /* Next DJs Panel */
-        .next-djs {
-            background-color: var(--card-dark);
-            border-radius: var(--border-radius);
-            padding: 15px;
-            margin-bottom: 20px;
-            box-shadow: var(--box-shadow);
+        .button_controle {
+            background-color: #453D79;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+            cursor: pointer;
         }
         
-        .next-djs h5 {
-            margin-top: 0;
-            color: var(--primary-light);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .button_controle:hover {
+            background-color: #7986CB;
         }
         
+        /* Próximos locutores */
         .dj-schedule {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 15px;
-            margin-top: 15px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
         }
         
+        .dj-slot {
+            background-color: #1E1E1E;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .dj-avatar {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 10px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        /* Responsive para móviles */
         @media (max-width: 600px) {
             .dj-schedule {
                 grid-template-columns: 1fr;
             }
         }
         
-        .dj-slot {
-            background-color: rgba(255,255,255,0.05);
-            border-radius: var(--border-radius);
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .dj-avatar {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            margin-bottom: 10px;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-        
-        .dj-name {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .dj-time {
-            font-size: 14px;
-            color: var(--primary-light);
-        }
-        
-        /* DJ Info Panel */
-        .dj-info {
-            background-color: var(--card-dark);
-            border-radius: var(--border-radius);
-            padding: 25px 20px 20px 100px;
-            position: relative;
-            margin-bottom: 20px;
-            box-shadow: var(--box-shadow);
-            overflow: hidden;
-        }
-        
-        .habbo-avatar {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 76px;
-            height: 76px;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center left;
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(0,0,0,0.3);
-        }
-        
-        .dj-status {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: var(--accent);
-            color: var(--text-light);
-            padding: 3px 10px;
-            border-radius: 30px;
-            font-size: 12px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .live-indicator {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            background-color: #ff0000;
-            border-radius: 50%;
-            animation: blink 1s infinite;
-        }
-        
-        @keyframes blink {
-            0% { opacity: 1; }
-            50% { opacity: 0.3; }
-            100% { opacity: 1; }
-        }
-        
-        /* Radio Player */
-        .radio-player {
-            background-color: var(--card-dark);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: var(--box-shadow);
-        }
-        
-        .player-top {
+        /* Metadatos de la canción */
+        .song-info {
             display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 20px;
-            margin-bottom: 20px;
+            grid-template-columns: 80px 1fr;
+            gap: 15px;
+            margin: 15px 0;
+            align-items: center;
         }
         
         .album-art {
-            width: 100px;
-            height: 100px;
-            border-radius: var(--border-radius);
+            width: 80px;
+            height: 80px;
+            border-radius: 4px;
             object-fit: cover;
-            box-shadow: var(--box-shadow);
         }
         
-        .song-info {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        .song-details h5 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
         }
         
-        .song-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 5px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+        .song-details p {
+            margin: 0;
+            color: #AAA;
         }
         
-        .song-artist {
-            font-size: 16px;
-            color: #bbb;
-            margin-bottom: 8px;
-        }
-        
-        .song-album {
-            font-size: 14px;
-            color: #999;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .player-controls {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .control-btn {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: var(--box-shadow);
-        }
-        
-        .control-btn.small {
-            width: 46px;
-            height: 46px;
-            font-size: 1rem;
-        }
-        
-        .control-btn:hover {
-            transform: scale(1.1);
-            background-color: var(--primary-light);
-        }
-        
-        .control-btn i {
-            font-size: 1.5rem;
-        }
-        
-        .volume-control {
-            display: flex;
-            align-items: center;
+        /* Stats de la radio */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 10px;
-            margin: 15px 0;
-        }
-        
-        .volume-slider {
-            flex-grow: 1;
-            margin: 0 10px;
-        }
-        
-        /* Progress bar and visualization */
-        .progress-container {
-            width: 100%;
-            height: 30px;
-            background-color: rgba(255,255,255,0.1);
-            border-radius: 15px;
-            overflow: hidden;
-            position: relative;
             margin: 20px 0;
         }
         
-        #audio-visualizer {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        
-        /* Radio Stats */
-        .stats-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            background-color: rgba(255,255,255,0.05);
-            border-radius: var(--border-radius);
-            padding: 15px;
-            margin: 20px 0;
-        }
-        
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 10px 15px;
+        .stat-box {
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 4px;
+            padding: 10px;
+            text-align: center;
         }
         
         .stat-value {
-            font-size: 20px;
-            font-weight: 600;
+            font-size: 24px;
+            font-weight: bold;
             margin-bottom: 5px;
         }
         
         .stat-label {
-            font-size: 12px;
-            color: #bbb;
-            text-transform: uppercase;
-        }
-        
-        /* Recent tracks */
-        .recent-tracks {
-            background-color: var(--card-dark);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            box-shadow: var(--box-shadow);
-            margin-bottom: 20px;
-        }
-        
-        .recent-tracks h5 {
-            margin-top: 0;
-            color: var(--primary-light);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .track-list {
-            max-height: 300px;
-            overflow-y: auto;
-            margin-top: 10px;
-            padding-right: 5px;
-        }
-        
-        .track-item {
-            display: grid;
-            grid-template-columns: 70px 1fr 30px;
-            gap: 15px;
-            padding: 12px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            align-items: center;
-        }
-        
-        .track-time {
-            color: #999;
             font-size: 14px;
-        }
-        
-        .track-title {
-            font-weight: 500;
-        }
-        
-        .track-artist {
-            font-size: 14px;
-            color: #bbb;
-        }
-        
-        .favorite-btn {
-            color: #ccc;
-            cursor: pointer;
-        }
-        
-        .favorite-btn.active {
-            color: #ff4081;
-        }
-        
-        /* Metadata blocks */
-        .metadata-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
-        
-        .metadata-block {
-            background-color: var(--card-dark);
-            border-radius: var(--border-radius);
-            padding: 15px;
-            box-shadow: var(--box-shadow);
-        }
-        
-        .metadata-block h5 {
-            margin-top: 0;
-            color: var(--primary-light);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-            border-radius: var(--border-radius);
-            padding: 8px;
-            background-color: rgba(255,255,255,0.05);
-        }
-        
-        .meta-item:last-child {
-            margin-bottom: 0;
-        }
-        
-        .meta-icon {
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-light);
-            background-color: var(--primary);
-            border-radius: 50%;
-        }
-        
-        .meta-info {
-            flex-grow: 1;
-        }
-        
-        .meta-label {
-            font-size: 12px;
-            color: #bbb;
-        }
-        
-        .meta-value {
-            font-size: 15px;
-            font-weight: 500;
-        }
-        
-        /* Utility classes */
-        .text-primary {
-            color: var(--primary-light);
-        }
-        
-        .my-2 {
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-        
-        .mt-3 {
-            margin-top: 15px;
-        }
-        
-        .text-center {
-            text-align: center;
-        }
-        
-        /* Animation for loading */
-        .loading {
-            position: relative;
-            display: inline-block;
-            width: 80px;
-            height: 20px;
-        }
-        
-        .loading:after {
-            content: " ";
-            display: block;
-            width: 64px;
-            height: 64px;
-            margin: 8px;
-            border-radius: 50%;
-            border: 6px solid #fff;
-            border-color: var(--primary) transparent var(--primary) transparent;
-            animation: loading 1.2s linear infinite;
-        }
-        
-        @keyframes loading {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-        
-        /* Debug panel */
-        #debug {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #333;
-            border-radius: var(--border-radius);
-            font-family: monospace;
-            font-size: 12px;
-            color: #0f0;
-            display: none;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-        
-        .debug-visible {
-            display: block !important;
-        }
-        
-        /* Toast Notifications */
-        .toast-container {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 9999;
-        }
-        
-        .toast {
-            padding: 12px 16px;
-            border-radius: 4px;
-            margin-bottom: 10px;
-            background-color: var(--primary);
-            color: white;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.16);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            animation: slideIn 0.3s ease forwards;
-        }
-        
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        
-        /* User preferences panel */
-        .user-preferences {
-            background-color: var(--card-dark);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            margin-top: 20px;
-            box-shadow: var(--box-shadow);
-        }
-        
-        .preference-group {
-            margin-bottom: 15px;
-        }
-        
-        /* Keyboard shortcuts help */
-        .keyboard-shortcuts {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #bbb;
-        }
-        
-        .shortcuts-grid {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 10px;
-        }
-        
-        .key {
-            background-color: rgba(255,255,255,0.1);
-            padding: 2px 8px;
-            border-radius: 3px;
-            font-weight: 500;
+            color: #AAA;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Station Header -->
-        <div class="station-header">
-            <img src="https://i.imgur.com/ITZcSUM.png" class="img_center z-depth-1" alt="Estación KUSFM Logo">
-            <h4>Estación KUSFM</h4>
-        </div>
-        
-        <!-- Next DJs Panel (Integration with Google Sheets) -->
-        <div class="next-djs">
-            <h5><i class="material-icons">schedule</i> Próximos Locutores</h5>
-            <div class="dj-schedule" id="dj-schedule">
-                <!-- Will be filled via Google Sheets API -->
-                <div class="dj-slot">
-                    <div class="dj-avatar" style="background-image: url('https://www.habbo.es/habbo-imaging/avatarimage?img_format=png&user=dj1&direction=2&head_direction=3&size=m&gesture=sml')"></div>
-                    <div class="dj-name">Cargando...</div>
-                    <div class="dj-time">--:-- - --:--</div>
-                </div>
-                <div class="dj-slot">
-                    <div class="dj-avatar" style="background-image: url('https://www.habbo.es/habbo-imaging/avatarimage?img_format=png&user=dj2&direction=2&head_direction=3&size=m&gesture=sml')"></div>
-                    <div class="dj-name">Cargando...</div>
-                    <div class="dj-time">--:-- - --:--</div>
-                </div>
-                <div class="dj-slot">
-                    <div class="dj-avatar" style="background-image: url('https://www.habbo.es/habbo-imaging/avatarimage?img_format=png&user=dj3&direction=2&head_direction=3&size=m&gesture=sml')"></div>
-                    <div class="dj-name">Cargando...</div>
-                    <div class="dj-time">--:-- - --:--</div>
-                </div>
-            </div>
-        </div>
+        <img src="https://i.imgur.com/ITZcSUM.png" class="img_center" alt="Estación KUSFM Logo">
         
         <!-- DJ Info Card -->
-        <div class="dj-info" id="dj-info">
+        <div class="card-panel infos_radio" id="infos_radio">
             <div class="habbo-avatar" id="habbo-avatar"></div>
-            <div class="dj-status" id="dj-status">
-                <span class="live-indicator"></span>
-                <span>EN VIVO</span>
-            </div>
-            <h5 id="locutor">AutoDJ</h5>
-            <p>Programa: <span id="locutor_programa">Emisión Automática</span></p>
-            <p><i class="material-icons tiny">headset</i> <span id="num_ouvintes">0</span> oyentes conectados</p>
+            <h5 id="locutor">Cargando...</h5>
+            <p>Programa: <span id="locutor_programa">Cargando...</span></p>
+            <p><i class="fas fa-headphones"></i> <span id="num_ouvintes">0</span> oyentes</p>
         </div>
         
-        <!-- Main Player -->
-        <div class="radio-player">
-            <div class="player-top">
+        <!-- Próximos Locutores -->
+        <h5>Próximos Locutores</h5>
+        <div class="dj-schedule">
+            <div class="dj-slot">
+                <div class="dj-avatar" id="dj1-avatar"></div>
+                <h6 id="dj1-name">DJ 1</h6>
+                <p id="dj1-time">18:00 - 20:00</p>
+            </div>
+            <div class="dj-slot">
+                <div class="dj-avatar" id="dj2-avatar"></div>
+                <h6 id="dj2-name">DJ 2</h6>
+                <p id="dj2-time">20:00 - 22:00</p>
+            </div>
+            <div class="dj-slot">
+                <div class="dj-avatar" id="dj3-avatar"></div>
+                <h6 id="dj3-name">DJ 3</h6>
+                <p id="dj3-time">22:00 - 00:00</p>
+            </div>
+        </div>
+        
+        <!-- Main Radio Player -->
+        <div class="wrapper_radio z-depth-3">
+            <!-- Información de la canción -->
+            <div class="song-info">
                 <img id="album-art" src="https://i.imgur.com/ITZcSUM.png" class="album-art" alt="Album Art">
-                <div class="song-info">
-                    <div class="song-title" id="song-title">Cargando...</div>
-                    <div class="song-artist" id="song-artist">Estación KUSFM</div>
-                    <div class="song-album" id="song-album"><i class="material-icons tiny">album</i> Desconocido</div>
+                <div class="song-details">
+                    <h5 id="song-title">Cargando...</h5>
+                    <p id="song-artist">Estación KUSFM</p>
                 </div>
             </div>
             
-            <!-- Audio Visualizer -->
-            <div class="progress-container">
-                <canvas id="audio-visualizer"></canvas>
+            <div class="marquee_wrapper">
+                <marquee class="marquee" scrolldelay="200" id="marquee_radio">
+                    <span>Estación KUSFM - Cargando...</span>
+                </marquee>
             </div>
             
-            <!-- Player Controls -->
-            <div class="player-controls">
-                <button class="control-btn small" id="prev-btn" title="Canción anterior">
-                    <i class="material-icons">skip_previous</i>
+            <div class="center-align" style="margin: 15px 0;">
+                <button class="button_controle waves-effect" id="btn_control" onclick="togglePlay()">
+                    <i id="icon_control" class="fas fa-play"></i>
                 </button>
-                <button class="control-btn" id="play-btn" onclick="togglePlay()">
-                    <i id="play-icon" class="material-icons">play_arrow</i>
+                <button class="button_controle waves-effect" onclick="toggleMute()">
+                    <i id="icon_mute" class="fas fa-volume-up"></i>
                 </button>
-                <button class="control-btn small" id="next-btn" title="Siguiente canción">
-                    <i class="material-icons">skip_next</i>
+                <button class="button_controle waves-effect" onclick="refreshPlayer()">
+                    <i class="fas fa-sync"></i>
                 </button>
             </div>
             
-            <!-- Volume Control -->
-            <div class="volume-control">
-                <i class="material-icons" id="volume-icon" onclick="toggleMute()">volume_up</i>
-                <input type="range" min="0" max="100" value="80" class="volume-slider" id="volume-slider">
-                <span id="volume-value">80%</span>
+            <!-- Volume Slider -->
+            <div style="display: flex; align-items: center; margin: 15px 0;">
+                <i class="fas fa-volume-down" style="margin-right: 10px;"></i>
+                <input type="range" min="0" max="100" value="80" id="volume-slider" style="flex-grow: 1;">
+                <i class="fas fa-volume-up" style="margin-left: 10px;"></i>
             </div>
             
-            <!-- Radio Stats -->
-            <div class="stats-container">
-                <div class="stat-item">
-           
+            <!-- Estadísticas de la radio -->
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value" id="stat-listeners">0</div>
+                    <div class="stat-label">Oyentes</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="stat-peak">0</div>
+                    <div class="stat-label">Pico hoy</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="stat-songs">0</div>
+                    <div class="stat-label">Canciones</div>
+                </div>
+            </div>
+            
+            <!-- Audio element -->
+            <audio id="player_audio" preload="auto"></audio>
+        </div>
+        
+        <!-- Historial de canciones -->
+        <h5 style="margin-top: 20px;">Canciones recientes</h5>
+        <ul class="collection" id="history-container" style="background-color: #1E1E1E; border: none;">
+            <li class="collection-item" style="background-color: #1E1E1E; color: white;">
+                Cargando historial...
+            </li>
+        </ul>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
+    <script>
+        // Configuración
+        const STATION_NAME = "estacionkusfm";
+        const API_URL = "https://radio.trabullnetwork.pro/api/nowplaying/" + STATION_NAME;
+        const STREAM_URL = "https://radio.trabullnetwork.pro/listen/" + STATION_NAME + "/radio.mp3";
+        
+        // Elementos DOM
+        const playerAudio = document.getElementById('player_audio');
+        const playButton = document.getElementById('btn_control');
+        const playIcon = document.getElementById('icon_control');
+        const muteIcon = document.getElementById('icon_mute');
+        const volumeSlider = document.getElementById('volume-slider');
+        const marqueeRadio = document.getElementById('marquee_radio');
+        const songTitle = document.getElementById('song-title');
+        const songArtist = document.getElementById('song-artist');
+        const albumArt = document.getElementById('album-art');
+        const locutor = document.getElementById('locutor');
+        const locutorPrograma = document.getElementById('locutor_programa');
+        const numOuvintes = document.getElementById('num_ouvintes');
+        const habboAvatar = document.getElementById('habbo-avatar');
+        const historyContainer = document.getElementById('history-container');
+        
+        // Stats
+        const statListeners = document.getElementById('stat-listeners');
+        const statPeak = document.getElementById('stat-peak');
+        const statSongs = document.getElementById('stat-songs');
+        
+        // Ejemplo de datos de DJs (reemplazar con datos reales cuando estén disponibles)
+        const djData = [
+            { name: "DJHabbo1", timeStart: "18:00", timeEnd: "20:00" },
+            { name: "DJHabbo2", timeStart: "20:00", timeEnd: "22:00" },
+            { name: "DJHabbo3", timeStart: "22:00", timeEnd: "00:00" }
+        ];
+        
+        // Configuración inicial
+        playerAudio.src = STREAM_URL;
+        playerAudio.volume = volumeSlider.value / 100;
+        setupDJs();
+        
+        // Reproducir/Pausar
+        function togglePlay() {
+            if (playerAudio.paused) {
+                playerAudio.play()
+                .then(() => {
+                    playIcon.classList.remove('fa-play');
+                    playIcon.classList.add('fa-pause');
+                })
+                .catch(e => {
+                    console.error('Error reproduciendo audio:', e);
+                    alert('Error al reproducir. Verifica tu conexión a internet.');
+                });
+            } else {
+                playerAudio.pause();
+                playIcon.classList.remove('fa-pause');
+                playIcon.classList.add('fa-play');
+            }
+        }
+        
+        // Silenciar/Desilenciar
+        function toggleMute() {
+            playerAudio.muted = !playerAudio.muted;
+            muteIcon.className = playerAudio.muted ? 'fas fa-volume-mute' : 'fas fa-volume-up';
+        }
+        
+        // Control de volumen
+        volumeSlider.addEventListener('input', function() {
+            playerAudio.volume = this.value / 100;
+        });
+        
+        // Configurar avatares de DJs
+        function setupDJs() {
+            for (let i = 0; i < 3; i++) {
+                const dj = djData[i];
+                document.getElementById(`dj${i+1}-name`).textContent = dj.name;
+                document.getElementById(`dj${i+1}-time`).textContent = `${dj.timeStart} - ${dj.timeEnd}`;
+                document.getElementById(`dj${i+1}-avatar`).style.backgroundImage = 
+                    `url('https://www.habbo.es/habbo-imaging/avatarimage?img_format=png&user=${dj.name}&direction=2&head_direction=3&size=m&gesture=sml')`;
+            }
+        }
+        
+        // Configurar avatar de Habbo
+        function setHabboAvatar(username = "estacionkusfm") {
+            const avatarUrl = `https://www.habbo.es/habbo-imaging/avatarimage?img_format=png&user=${username}&direction=2&head_direction=3&size=l&gesture=sml&action=std`;
+            habboAvatar.style.backgroundImage = `url('${avatarUrl}')`;
+        }
+        
+        // Refrescar reproductor
+        function refreshPlayer() {
+            playerAudio.load();
+            
+            if (!playerAudio.paused) {
+                playerAudio.play()
+                .catch(e => console.error('Error al refrescar:', e));
+            }
+            
+            fetchNowPlaying();
+        }
+        
+        // Formatear tiempo
+        function formatTime(timestamp) {
+            const date = new Date(timestamp * 1000);
+            const hours = date.getHours().toString().padStart(2, '0');
+            const minutes = date.getMinutes().toString().padStart(2, '0');
+            return `${hours}:${minutes}`;
+        }
+        
+        // Actualizar historial de canciones
+        function updateHistory(tracks) {
+            historyContainer.innerHTML = '';
+            
+            if (!tracks || tracks.length === 0) {
+                historyContainer.innerHTML = '<li class="collection-item" style="background-color: #1E1E1E; color: white;">No hay historial disponible</li>';
+                return;
+            }
+            
+            tracks.forEach((track, index) => {
+                if (index === 0) return; // Saltar la canción actual
+                
+                const li = document.createElement('li');
+                li.className = 'collection-item';
+                li.style.backgroundColor = '#1E1E1E';
+                li.style.color = 'white';
+                li.style.borderBottom = '1px solid #333';
+                
+                li.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <strong>${track.song.title}</strong>
+                            <p style="margin: 0; color: #AAA;">${track.song.artist}</p>
+                        </div>
+                        <span style="color: #AAA;">${formatTime(track.played_at)}</span>
+                    </div>
+                `;
+                
+                historyContainer.appendChild(li);
+            });
+        }
+        
+        // Obtener datos actuales de la radio
+        function fetchNowPlaying() {
+            fetch(API_URL)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Error HTTP: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Actualizar información de la canción
+                    const nowPlaying = data.now_playing;
+                    songTitle.textContent = nowPlaying.song.title || "Desconocido";
+                    songArtist.textContent = nowPlaying.song.artist || "Desconocido";
+                    
+                    // Actualizar marquee
+                    marqueeRadio.innerHTML = `<span>Estación KUSFM - ${nowPlaying.song.title} - ${nowPlaying.song.artist}</span>`;
+                    
+                    // Actualizar imagen del álbum
+                    albumArt.src = nowPlaying.song.art || "https://i.imgur.com/ITZcSUM.png";
+                    
+                    // Actualizar información del DJ
+                    const djName = data.live.is_live ? data.live.streamer_name : "AutoDJ";
+                    const showName = data.live.is_live ? "Programa en vivo" : "Emisión Automática";
+                    
+                    locutor.textContent = djName;
+                    locutorPrograma.textContent = showName;
+                    
+                    // Actualizar avatar de Habbo
+                    setHabboAvatar(data.live.is_live ? data.live.streamer_name : "estacionkusfm");
+                    
+                    // Actualizar stats
+                    numOuvintes.textContent = data.listeners.current;
+                    statListeners.textContent = data.listeners.current;
+                    statPeak.textContent = data.listeners.unique;
+                    statSongs.textContent = data.song_history.length;
+                    
+                    // Actualizar historial
+                    updateHistory(data.song_history);
+                })
+                .catch(error => {
+                    console.error('Error al obtener datos:', error);
+                    marqueeRadio.innerHTML = "<span>Estación KUSFM - Error al cargar información</span>";
+                });
+        }
+        
+        // Manejar errores de audio
+        playerAudio.addEventListener('error', function() {
+            console.error('Error de audio:', playerAudio.error);
+            playIcon.classList.remove('fa-pause');
+            playIcon.classList.add('fa-play');
+            alert("Error en la transmisión. Intenta refrescar el reproductor.");
+        });
+        
+        // Inicializar
+        window.addEventListener('DOMContentLoaded', function() {
+            setHabboAvatar("estacionkusfm");
+            fetchNowPlaying();
+            
+            // Actualizar cada 15 segundos
+            setInterval(fetchNowPlaying, 15000);
+        });
+    </script>
+</body>
+</html>
