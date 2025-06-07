@@ -1,112 +1,544 @@
-{
-  "endpoint": "/repos/luisitoys12/ekusfm/contents/index.html",
-  "parameters": {
-    "ref": "main"
-  }
-}
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-	<title>Rádio Brasileira</title>
-	<link rel="icon" href="https://radio.exbrhbofc.net/assets/img/rbr_icon.ico">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<meta name="theme-color" content="#453D79">
-	<meta name="keywords" content="exército brasileiro, fa-site, habbo, fansite, radio brasileira">
-	<meta property="og:site_name" content="Rádio Brasileira">
-	<meta property="og:locale" content="pt_BR"/>
-	<meta property="og:type" content="website"/>
-	<meta property="og:title" content="Rádio Brasileira"/>
-	<meta property="og:description" content="Sintoniza ya!"/>
-	{
-  "endpoint": "/repos/luisitoys12/ekusfm/contents/index.html",
-  "parameters": {
-    "ref": "main"
-  }
-}
-	<meta property="og:image" content="https://exbrhbofc.net/arquivos/2021/05/ogimage.png"/>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-	<link rel="stylesheet" type="text/css" href="https://bonavigo.github.io/player_radiobr/css/rbr.css">
-	<script src="https://kit.fontawesome.com/5db384e8a3.js" crossorigin="anonymous"></script>
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <title>Estación KUSFM</title>
+    <meta charset="UTF-8">
+    <link rel="icon" href="favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="theme-color" content="#453D79">
+    <meta name="keywords" content="estacion kus, kus, fm, radio, habbo, azuracast">
+    <meta property="og:site_name" content="Estación KUSFM">
+    <meta property="og:locale" content="es_ES"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Estación KUSFM"/>
+    <meta property="og:description" content="Sintoniza ya! La mejor música en KUSFM"/>
+    <meta property="og:image" content="https://i.imgur.com/ITZcSUM.png"/>
+    
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/5db384e8a3.js" crossorigin="anonymous"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #453D79;
+            --secondary-color: #1A237E;
+            --accent-color: #7986CB;
+            --text-color: #FFFFFF;
+            --background-color: #121212;
+            --card-color: #1E1E1E;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .theme-light {
+            --primary-color: #3F51B5;
+            --secondary-color: #303F9F;
+            --accent-color: #C5CAE9;
+            --text-color: #212121;
+            --background-color: #F5F5F5;
+            --card-color: #FFFFFF;
+        }
+        
+        .img_center {
+            max-width: 100%;
+            display: block;
+            margin: 1rem auto;
+        }
+        
+        .infos_radio {
+            background-color: var(--card-color) !important;
+            color: var(--text-color);
+            border-radius: 8px;
+            padding: 20px 20px 20px 80px;
+            position: relative;
+            margin: 1rem auto;
+            max-width: 600px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .div_radio {
+            margin: 1.5rem auto;
+            max-width: 600px;
+        }
+        
+        .wrapper_radio {
+            background-color: var(--card-color);
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .song-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .album-art {
+            width: 80px;
+            height: 80px;
+            border-radius: 4px;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+        
+        .song-details {
+            flex-grow: 1;
+        }
+        
+        .song-title {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .song-artist {
+            font-size: 14px;
+            color: #aaa;
+        }
+        
+        .marquee_wrapper {
+            overflow: hidden;
+            padding: 8px 0;
+        }
+        
+        .marquee {
+            color: var(--text-color);
+            font-size: 16px;
+        }
+        
+        .controles {
+            width: 100%;
+        }
+        
+        .wrapper_btn_controles {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .button_controle {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: transform 0.2s ease, background-color 0.3s ease;
+        }
+        
+        .button_controle:hover {
+            transform: scale(1.1);
+            background-color: var(--accent-color);
+        }
+        
+        /* Slider for volume */
+        .volume-slider-container {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        
+        .volume-icon {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        
+        .volume-slider {
+            width: 100%;
+        }
+        
+        /* Audio visualizer */
+        #visualizer {
+            width: 100%;
+            height: 60px;
+            background-color: rgba(0,0,0,0.1);
+            margin-top: 15px;
+            border-radius: 4px;
+        }
+        
+        /* Station info section */
+        .station-info {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: var(--card-color);
+            border-radius: 8px;
+        }
+        
+        /* Recent tracks */
+        .recent-tracks {
+            margin-top: 20px;
+        }
+        
+        .track-item {
+            padding: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+        }
+        
+        .track-time {
+            margin-right: 15px;
+            color: #aaa;
+            font-size: 12px;
+            min-width: 50px;
+        }
+        
+        .track-info {
+            flex-grow: 1;
+        }
+        
+        /* Social sharing buttons */
+        .social-sharing {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .social-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .facebook { background-color: #3b5998; }
+        .twitter { background-color: #1da1f2; }
+        .whatsapp { background-color: #25d366; }
+        
+        /* Loading indicator */
+        .loader {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 10px auto;
+            display: none;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Theme toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 1000;
+            background-color: var(--primary-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .infos_radio {
+                padding-left: 70px;
+            }
+            
+            .button_controle {
+                width: 45px;
+                height: 45px;
+                font-size: 16px;
+            }
+            
+            .song-title {
+                font-size: 16px;
+            }
+        }
+    </style>
 </head>
 <body>
-	<main>
-		<img src="https://i.imgur.com/ITZcSUM.png" class="img_center">
-		<div class="card-panel infos_radio" id="infos_radio" style="background:url(https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=RadioBR&direction=2&head_direction=3&size=l&gesture=sml&action=std) left no-repeat, linear-gradient(152deg, rgb(57,73,171) 0%, rgb(26,35,126)), #1A237E;">
-			<span id="locutor">RadioBR</span> na voz com o programa "<span id="locutor_programa">AutoDJ</span>".<br>
-			<span id="num_ouvintes">0</span> ouvintes.
-		</div>
-		<div class="div_radio">
-			<div class="wrapper_radio z-depth-3" id="radio">
-				<div class="controles">
-					<div class="marquee_wrapper">
-						<marquee class="marquee" scrolldelay="200" truespeed="" id="marquee_radio"><span>Rádio Brasileira</span></marquee>
-					</div>
-					<div class="wrapper_btn_controles">
-						<button class="button_controle waves-effect" id="btn_control" onclick="player()"><i id="icon_control" class="fas fa-play"></i></button>
-						<button class="button_controle waves-effect"><i class="fas fa-volume-up"></i> <i class="fas fa-minus" onclick="abaixar()"></i> <i class="fas fa-plus" onclick="aumentar()"></i></button>
-						<button class="button_controle waves-effect" id="btn_control" onclick="refresh_radio()"><i class="fas fa-sync"></i></button>
-						<audio id="player_audio" data-radio="rbr" data-status="pausada" src="https://ssl.painelcast.com:6964/;"></audio>
-					</div>
-				</div>
-			</div>
-		</div>
-	</main>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-	<script src="https://login.exbrhbofc.net/js/radio.js"></script>
-	<script>
-		M.AutoInit();
-	</script>
-	<script src="https://exbrhbofc.net/js/EasyAJAX.js"></script>
-	<script>
-		var success = function(response) {
-			let data = JSON.parse(response);
-			var status = data.status; // Mostra o status da rádio
-			var porta = data.porta; // Mostra a porta da rádio
-			var porta_dj = data.porta_dj; // Mostra a porta DJ da rádio
-			var ip = data.ip; // Mostra o endereço do servidor da rádio
-			var ouvintes_conectados = data.ouvintes_conectados; // Mostra total de ouvintes conectados
-			var titulo = data.titulo; // Mostra o nome da rádio
-			var plano_ouvintes = data.plano_ouvintes; // Mostra o limite de ouvintes do plano
-			var plano_ftp = data.plano_ftp; // Mostra o limite de espaço do AutoDJ do plano
-			var plano_bitrate = data.plano_bitrate; // Mostra o bitrate do plano
-			var musica_atual = data.musica_atual; // Mostra a música atual
-			var proxima_musica = data.proxima_musica; // Mostra a próxima música do AutoDJ(não é valido para transmissão ao vivo)
-			var genero = data.genero; // Mostra o genero da rádio
-			var shoutcast = data.shoutcast; // Mostra a URL do shoutcast
-			var rtmp = data.rtmp; // Mostra a URl do RTMP para uso em players próprios(se tiver RTMP)
-			var rtsp = data.rtsp; // Mostra a URl do RTSP para uso em players próprios(se tiver RTMP)
-			var capa_musica = data.capa_musica; // Mostra a URL da imagem JPG da capa do album da música
-			var locutor = data.locutor;
-			var programa = data.programa;
-
-			let marquee = document.querySelector("#marquee_radio");
-			let locutor_html = document.querySelector("#locutor");
-			let programa_html = document.querySelector("#locutor_programa");
-			let ouvintes_html = document.querySelector("#num_ouvintes");
-			let box_locutor = document.querySelector("#infos_radio");
-
-			if (typeof musica_atual == 'object') {
-				marquee.innerHTML = `Rádio Brasileira`;
-			} else {
-				marquee.innerHTML = `${titulo} - ${musica_atual}`;
-			}
-
-			locutor_html.innerHTML = locutor;
-			programa_html.innerHTML = programa;
-			ouvintes_html.innerHTML= ouvintes_conectados;
-			box_locutor.style.background = `url(https://www.habbo.es/habbo-imaging/avatarimage?img_format=png&user=${locutor}&direction=2&head_direction=3&size=l&gesture=sml&action=std) left no-repeat, linear-gradient(152deg, rgb(57,73,171) 0%, rgb(26,35,126) 100%), #1A237E`;
-		}
-		var error = function() {
-
-		}
-		var funcao_radio = function () {
-			let data = easyAJAX.GET('https://radio.exbrhbofc.net/api.php', success, error);
-		}
-		setInterval(funcao_radio, 2000);
-		funcao_radio();
-	</script>
-</body>
-</html>
+    <div class="theme-toggle" id="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </div>
+    
+    <main class="container">
+        <img src="https://i.imgur.com/ITZcSUM.png" class="img_center" alt="Estación KUSFM Logo">
+        
+        <!-- DJ/Host Info Card -->
+        <div class="card-panel infos_radio" id="infos_radio">
+            <div id="avatar-container"></div>
+            <span id="locutor">Cargando...</span> en vivo con "<span id="locutor_programa">Cargando...</span>"<br>
+            <span id="num_ouvintes">0</span> oyentes conectados.
+        </div>
+        
+        <!-- Main Radio Player -->
+        <div class="div_radio">
+            <div class="wrapper_radio z-depth-3" id="radio">
+                <!-- Now Playing Song Info -->
+                <div class="song-info">
+                    <img id="album-art" src="https://i.imgur.com/ITZcSUM.png" class="album-art" alt="Portada del álbum">
+                    <div class="song-details">
+                        <div class="song-title" id="song-title">Cargando...</div>
+                        <div class="song-artist" id="song-artist">Cargando...</div>
+                    </div>
+                </div>
+                
+                <div class="controles">
+                    <div class="marquee_wrapper">
+                        <marquee class="marquee" scrolldelay="200" truespeed="" id="marquee_radio">
+                            <span>Estación KUSFM - Cargando...</span>
+                        </marquee>
+                    </div>
+                    
+                    <!-- Audio Visualizer -->
+                    <canvas id="visualizer"></canvas>
+                    
+                    <!-- Player Controls -->
+                    <div class="wrapper_btn_controles">
+                        <button class="button_controle waves-effect" id="btn_control" onclick="togglePlay()">
+                            <i id="icon_control" class="fas fa-play"></i>
+                        </button>
+                        <button class="button_controle waves-effect" id="btn_mute" onclick="toggleMute()">
+                            <i id="icon_mute" class="fas fa-volume-up"></i>
+                        </button>
+                        <button class="button_controle waves-effect" onclick="refreshRadio()">
+                            <i class="fas fa-sync"></i>
+                        </button>
+                        <button class="button_controle waves-effect" id="btn_favorite" onclick="toggleFavorite()">
+                            <i class="far fa-heart" id="favorite-icon"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Volume Slider -->
+                    <div class="volume-slider-container">
+                        <i class="fas fa-volume-down volume-icon"></i>
+                        <input type="range" min="0" max="100" value="80" class="volume-slider" id="volume-slider">
+                        <i class="fas fa-volume-up volume-icon"></i>
+                    </div>
+                    
+                    <!-- Loading indicator -->
+                    <div class="loader" id="loader"></div>
+                    
+                    <!-- Audio element -->
+                    <audio id="player_audio" preload="auto"></audio>
+                </div>
+                
+                <!-- Social Sharing -->
+                <div class="social-sharing">
+                    <div class="social-btn facebook" onclick="shareOnFacebook()">
+                        <i class="fab fa-facebook-f"></i>
+                    </div>
+                    <div class="social-btn twitter" onclick="shareOnTwitter()">
+                        <i class="fab fa-twitter"></i>
+                    </div>
+                    <div class="social-btn whatsapp" onclick="shareOnWhatsApp()">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent tracks -->
+            <div class="recent-tracks" id="recent-tracks">
+                <h5>Canciones recientes</h5>
+                <div id="history-container">
+                    <!-- Tracks will be inserted here -->
+                    <div class="track-item">
+                        <div class="track-time">Cargando...</div>
+                        <div class="track-info">Cargando historial de canciones...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            M.AutoInit();
+            
+            // Initialize variables
+            let audioContext;
+            let audioAnalyser;
+            let sourceNode;
+            let favoriteTracks = JSON.parse(localStorage.getItem('favoriteTracks')) || [];
+            let currentTrack = {};
+            const stationName = 'estacionkusfm'; // Your AzuraCast station name
+            const apiUrl = `https://radio.trabullnetwork.pro/api/nowplaying/${stationName}`;
+            const streamUrl = `https://radio.trabullnetwork.pro/listen/${stationName}`;
+            
+            // Get elements
+            const playerAudio = document.getElementById('player_audio');
+            const playButton = document.getElementById('btn_control');
+            const playIcon = document.getElementById('icon_control');
+            const muteButton = document.getElementById('btn_mute');
+            const muteIcon = document.getElementById('icon_mute');
+            const volumeSlider = document.getElementById('volume-slider');
+            const marqueeRadio = document.getElementById('marquee_radio');
+            const songTitle = document.getElementById('song-title');
+            const songArtist = document.getElementById('song-artist');
+            const albumArt = document.getElementById('album-art');
+            const locutorElement = document.getElementById('locutor');
+            const programaElement = document.getElementById('locutor_programa');
+            const numOuvintesElement = document.getElementById('num_ouvintes');
+            const avatarContainer = document.getElementById('avatar-container');
+            const favoriteIcon = document.getElementById('favorite-icon');
+            const historyContainer = document.getElementById('history-container');
+            const loaderElement = document.getElementById('loader');
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeToggleIcon = themeToggle.querySelector('i');
+            
+            // Set audio source
+            playerAudio.src = streamUrl;
+            playerAudio.volume = volumeSlider.value / 100;
+            
+            // Set up volume control
+            volumeSlider.addEventListener('input', function() {
+                playerAudio.volume = this.value / 100;
+                updateMuteIcon();
+            });
+            
+            // Theme toggle handler
+            themeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('theme-light');
+                if (document.body.classList.contains('theme-light')) {
+                    themeToggleIcon.classList.remove('fa-moon');
+                    themeToggleIcon.classList.add('fa-sun');
+                } else {
+                    themeToggleIcon.classList.remove('fa-sun');
+                    themeToggleIcon.classList.add('fa-moon');
+                }
+                localStorage.setItem('theme', document.body.classList.contains('theme-light') ? 'light' : 'dark');
+            });
+            
+            // Load saved theme
+            if (localStorage.getItem('theme') === 'light') {
+                document.body.classList.add('theme-light');
+                themeToggleIcon.classList.remove('fa-moon');
+                themeToggleIcon.classList.add('fa-sun');
+            }
+            
+            // -------------------- FUNCTIONS --------------------
+            
+            // Toggle play/pause
+            window.togglePlay = function() {
+                if (playerAudio.paused) {
+                    playerAudio.play()
+                    .then(() => {
+                        playIcon.classList.remove('fa-play');
+                        playIcon.classList.add('fa-pause');
+                        initializeAudioVisualizer();
+                    })
+                    .catch(e => {
+                        console.error('Error playing audio:', e);
+                        M.toast({html: '¡Error al reproducir! Intenta de nuevo.', classes: 'red'});
+                    });
+                } else {
+                    playerAudio.pause();
+                    playIcon.classList.remove('fa-pause');
+                    playIcon.classList.add('fa-play');
+                }
+            };
+            
+            // Refresh radio
+            window.refreshRadio = function() {
+                showLoader();
+                fetchNowPlaying();
+                if (!playerAudio.paused) {
+                    playerAudio.load();
+                    playerAudio.play()
+                    .catch(e => {
+                        console.error('Error reloading audio:', e);
+                        playIcon.classList.remove('fa-pause');
+                        playIcon.classList.add('fa-play');
+                    });
+                }
+            };
+            
+            // Toggle mute
+            window.toggleMute = function() {
+                playerAudio.muted = !playerAudio.muted;
+                updateMuteIcon();
+            };
+            
+            // Update mute button icon
+            function updateMuteIcon() {
+                muteIcon.className = ''; // Clear classes
+                
+                if (playerAudio.muted || playerAudio.volume === 0) {
+                    muteIcon.classList.add('fas', 'fa-volume-mute');
+                } else if (playerAudio.volume < 0.5) {
+                    muteIcon.classList.add('fas', 'fa-volume-down');
+                } else {
+                    muteIcon.classList.add('fas', 'fa-volume-up');
+                }
+            }
+            
+            // Toggle favorite track
+            window.toggleFavorite = function() {
+                if (!currentTrack.title) return;
+                
+                const trackKey = `${currentTrack.title}-${currentTrack.artist}`;
+                const index = favoriteTracks.findIndex(track => 
+                    `${track.title}-${track.artist}` === trackKey
+                );
+                
+                if (index === -1) {
+                    // Add to favorites
+                    favoriteTracks.push({
+                        title: currentTrack.title,
+                        artist: currentTrack.artist,
+                        timestamp: new Date().toISOString()
+                    });
+                    favoriteIcon.classList.remove('far');
+                    favoriteIcon.classList.add('fas');
+                    M.toast({html: '¡Añadido a favoritos!', classes: 'green'});
+                } else {
+                    // Remove from favorites
+                    favoriteTracks.splice(index, 1);
+                    favoriteIcon.classList.remove('fas');
+                    favoriteIcon.classList.add('far');
+                    M.toast({html: 'Eliminado de favoritos', classes: 'red'});
+                }
+                
+                localStorage.setItem('favoriteTracks', JSON.stringify(favoriteTracks));
+            };
+            
+            // Check if current track is favorited
+            function checkFavoriteStatus() {
+                if (!currentTrack.title) return;
+                
+                const trackKey = `${currentTrack.title}-${currentTrack.artist}`;
+                const isFavorite = favoriteTracks.some(track => 
+                    `${track.title}-${track.artist}` === trackKey
+                );
+      
