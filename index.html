@@ -366,7 +366,7 @@
             marquee.textContent = `Estación KUSFM - ${data.now_playing.song.title} - ${data.now_playing.song.artist}`;
 
             // Info de DJ
-            const djName = data.live.is_live ? data.live.streamer_name : "AutoDJ";
+            const djName = data.live.is_live ? data.live.streamer_name : "estacionkusfm";
             const showName = data.live.is_live ? "Programa en vivo" : "Emisión Automática";
             playerDj.textContent = djName;
             playerShow.textContent = showName;
@@ -376,7 +376,7 @@
             listenersCount.textContent = data.listeners.current;
         })
         .catch(()=> {
-            marquee.textContent = "Estación KUSFM - Error al cargar información";
+            marquee.textContent = "Error al cargar información";
         });
     }
     setInterval(fetchRadioInfo, 15000);
@@ -392,11 +392,11 @@
         { titulo:"Noche de DJs", contenido:"Maratón de música en vivo.", fecha:"2025-06-13" }
     ];
     const equipo = [
-        { user:"estacionkusfm", habbo:"estacionkusfm", rol:"Fundador", img:"https://www.habbo.es/habbo-imaging/avatarimage?user=KusFM&head_direction=3&size=m" },
-        { user:"ser03z-51", habbo:"ser03z-51", rol:"Administrador", img:"https://www.habbo.es/habbo-imaging/avatarimage?user=luisitoys12&head_direction=3&size=m" },
-        { user:"Staff1", habbo:"estacionkusfm", rol:"DJ", img:"https://www.habbo.es/habbo-imaging/avatarimage?user=HabboDJ1&head_direction=3&size=m" },
-        { user:"Staff2", habbo:"estacionkusfm", rol:"Eventero", img:"https://www.habbo.es/habbo-imaging/avatarimage?user=EventeroX&head_direction=3&size=m" },
-        { user:"Staff3", habbo:"Reporterita", rol:"Reportero", img:"https://www.habbo.es/habbo-imaging/avatarimage?user=Reporterita&head_direction=3&size=m" }
+        { user:"estacionkusfm", habbo:"estacionkusfm", rol:"Fundador", img:"https://www.habbo.es/habbo-imaging/avatarimage?user=estacionkusfm&head_direction=3&size=m" },
+        { user:"ser03z-51", habbo:"ser03z-51", rol:"Administrador", img:"https://www.habbo.es/habbo-imaging/avatarimage?user=ser03z-51&head_direction=3&size=m" },
+        { user:"Staff1", habbo:"estacionkusfm", rol:"DJ", img:"https://www.habbo.es/habbo-imaging/avatarimage?user=estacionkusfm&head_direction=3&size=m" },
+        { user:"Staff2", habbo:"estacionkusfm", rol:"Eventero", img:"https://www.habbo.es/habbo-imaging/avatarimage?user=estacionkusfm&head_direction=3&size=m" },
+        { user:"Staff3", habbo:"Reporterita", rol:"Reportero", img:"https://www.habbo.es/habbo-imaging/avatarimage?user=estacionkusfm&head_direction=3&size=m" }
     ];
     function renderNoticias() {
         let html = "";
