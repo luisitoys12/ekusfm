@@ -1,657 +1,539 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>Estación KUSFM</title>
+    <title>Estación KUSFM - Versión Pro</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="theme-color" content="#453D79">
-    
-    <!-- Materialize CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/5db384e8a3.js" crossorigin="anonymous"></script>
-    
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #121212;
-            color: #FFFFFF;
+            font-family: 'Roboto', Arial, sans-serif;
+            background: linear-gradient(130deg, #ffe082 0%, #e1bee7 100%);
+            color: #222;
         }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .img_center {
-            max-width: 100%;
-            display: block;
-            margin: 1rem auto;
-        }
-        
-        .infos_radio {
-            background-color: #1E1E1E !important;
-            color: #FFFFFF;
-            border-radius: 8px;
-            padding: 20px 20px 20px 100px !important; /* Más espacio para el avatar */
-            position: relative;
-            margin: 1rem auto;
-            min-height: 80px; /* Asegurar espacio para el avatar */
-        }
-        
-        /* Estilo específico para el avatar de Habbo */
-        .habbo-avatar {
-            position: absolute;
-            left: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 80px;
-            height: 80px;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center left;
-        }
-        
-        .wrapper_radio {
-            background-color: #1E1E1E;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 20px;
-        }
-        
-        .marquee_wrapper {
-            overflow: hidden;
-            padding: 8px 0;
-            background-color: rgba(0,0,0,0.2);
-            border-radius: 4px;
-        }
-        
-        .marquee {
-            color: #FFFFFF;
-            font-size: 16px;
-        }
-        
-        .button_controle {
-            background-color: #453D79;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            margin: 5px;
-            cursor: pointer;
-        }
-        
-        .button_controle:hover {
-            background-color: #7986CB;
-        }
-        
-        /* Próximos locutores */
-        .dj-schedule {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin: 20px 0;
-        }
-        
-        .dj-slot {
-            background-color: #1E1E1E;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
-        }
-        
-        .dj-avatar {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 10px;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-        
-        /* Responsive para móviles */
-        @media (max-width: 600px) {
-            .dj-schedule {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        /* Metadatos de la canción */
-        .song-info {
-            display: grid;
-            grid-template-columns: 80px 1fr;
-            gap: 15px;
-            margin: 15px 0;
+        .summer-banner {
+            background: url('https://i.imgur.com/TmDxU1X.png') center/cover no-repeat;
+            border-radius: 15px;
+            min-height: 130px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 22px #c19c5e66;
+            display: flex;
             align-items: center;
+            justify-content: center;
         }
-        
-        .album-art {
-            width: 80px;
-            height: 80px;
-            border-radius: 4px;
-            object-fit: cover;
-        }
-        
-        .song-details h5 {
-            margin: 0 0 5px 0;
-            font-size: 18px;
-        }
-        
-        .song-details p {
+        .summer-banner h1 {
+            color: #fff176;
+            text-shadow: 2px 2px 6px #e65100, 0 2px 12px #fffbe7;
+            font-size: 2.3rem;
+            font-weight: 900;
             margin: 0;
-            color: #AAA;
         }
-        
-        /* Stats de la radio */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin: 20px 0;
+        .player-bg {
+            background: url('https://i.imgur.com/TmDxU1X.png') center/cover no-repeat;
+            border-radius: 20px;
+            padding: 2rem 1rem 1rem 1rem;
+            box-shadow: 0 2px 22px #e6510022;
         }
-        
-        .stat-box {
-            background-color: rgba(0,0,0,0.2);
-            border-radius: 4px;
-            padding: 10px;
-            text-align: center;
-        }
-        
-        .stat-value {
-            font-size: 24px;
+        .marquee {
+            background: #fffde7cc;
+            color: #e65100;
+            border-radius: 10px;
+            margin: 10px 0;
+            padding: 8px 0;
             font-weight: bold;
-            margin-bottom: 5px;
+            font-size: 1.1rem;
         }
-        
-        .stat-label {
-            font-size: 14px;
-            color: #AAA;
+        .section-title {
+            background: linear-gradient(90deg, #fffde7, #ffe082 90%);
+            color: #e65100;
+            font-weight: bold;
+            border-radius: 7px;
+            padding: 6px 18px;
+            margin-bottom: 18px;
+            border-left: 6px solid #ff9100;
+            box-shadow: 0 2px 8px #ffd54f33;
         }
-
-        /* NUEVO: Estilos noticias/eventos */
-        .noticias-lista article, .eventos-lista article {
-            background: #222;
-            padding: 12px;
+        .avatar-habbo {
+            background: #fffde7;
             border-radius: 8px;
+            padding: 2px;
+            max-width: 80px;
+            box-shadow: 0 2px 10px #ffe08299;
+        }
+        .bg-orange-glass {
+            background: rgba(255,193,7,0.14);
+            border-radius: 10px;
+        }
+        .team-role {
+            font-size: 1.15em;
+            font-weight: bold;
+            color: #f57c00;
+        }
+        .team-member {
+            border: 1px solid #ffe0b2;
+            border-radius: 10px;
+            background: #fffde7;
+            padding: 10px;
             margin-bottom: 12px;
         }
-        .noticias-lista h6, .eventos-lista h6 {
-            color: #ffdb58;
-            margin: 0 0 6px 0;
+        .request-card {
+            background: #ffecb3;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px #ffe08233;
         }
-        .noticias-lista span, .eventos-lista span {
-            color: #aaa;
-            font-size: .92em;
+        .dj-panel, .admin-panel {
+            background: #fffde7;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px #ffe08255;
         }
-        /* NUEVO: Estilo DJ panel */
-        #dj-panel {
-            max-width: 400px;
-            margin: 32px auto;
-            background: #181838;
-            border-radius: 10px;
-            padding: 16px;
-            box-shadow: 0 2px 8px #000a;
+        .badge-habbo {
+            height: 40px;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        .summer-icon {
+            font-size: 2.2em;
+            color: #ffa726;
+            margin: 0 10px;
+            vertical-align: middle;
+            filter: drop-shadow(1px 3px 2px #fff9c4);
+        }
+        .mb-6 { margin-bottom: 3rem !important;}
+        .form-label { font-weight: 500; color: #e65100;}
+        .form-control, .form-select { background: #fffde7;}
+        /* Scrollbar */
+        ::-webkit-scrollbar {width: 10px; background: #ffe082;}
+        ::-webkit-scrollbar-thumb {background: #ffb300; border-radius: 5px;}
+        /* Responsive */
+        @media (max-width: 700px) {
+            .player-bg {padding: 1rem;}
+            .summer-banner h1 {font-size: 1.3rem;}
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <img src="https://i.imgur.com/ITZcSUM.png" class="img_center" alt="Estación KUSFM Logo">
-        
-        <!-- DJ Info Card -->
-        <div class="card-panel infos_radio" id="infos_radio">
-            <div class="habbo-avatar" id="habbo-avatar"></div>
-            <h5 id="locutor">Cargando...</h5>
-            <p>Programa: <span id="locutor_programa">Cargando...</span></p>
-            <p><i class="fas fa-headphones"></i> <span id="num_ouvintes">0</span> oyentes</p>
-        </div>
-        
-        <!-- Próximos Locutores -->
-        <h5>Próximos Locutores</h5>
-        <div class="dj-schedule">
-            <div class="dj-slot">
-                <div class="dj-avatar" id="dj1-avatar"></div>
-                <h6 id="dj1-name">DJ 1</h6>
-                <p id="dj1-time">18:00 - 20:00</p>
-            </div>
-            <div class="dj-slot">
-                <div class="dj-avatar" id="dj2-avatar"></div>
-                <h6 id="dj2-name">DJ 2</h6>
-                <p id="dj2-time">20:00 - 22:00</p>
-            </div>
-            <div class="dj-slot">
-                <div class="dj-avatar" id="dj3-avatar"></div>
-                <h6 id="dj3-name">DJ 3</h6>
-                <p id="dj3-time">22:00 - 00:00</p>
-            </div>
-        </div>
-        
-        <!-- Main Radio Player -->
-        <div class="wrapper_radio z-depth-3">
-            <!-- Información de la canción -->
-            <div class="song-info">
-                <img id="album-art" src="https://i.imgur.com/ITZcSUM.png" class="album-art" alt="Album Art">
-                <div class="song-details">
-                    <h5 id="song-title">Cargando...</h5>
-                    <p id="song-artist">Estación KUSFM</p>
-                </div>
-            </div>
-            
-            <div class="marquee_wrapper">
-                <marquee class="marquee" scrolldelay="200" id="marquee_radio">
-                    <span>Estación KUSFM - Cargando...</span>
-                </marquee>
-            </div>
-            
-            <div class="center-align" style="margin: 15px 0;">
-                <button class="button_controle waves-effect" id="btn_control" onclick="togglePlay()">
-                    <i id="icon_control" class="fas fa-play"></i>
-                </button>
-                <button class="button_controle waves-effect" onclick="toggleMute()">
-                    <i id="icon_mute" class="fas fa-volume-up"></i>
-                </button>
-                <button class="button_controle waves-effect" onclick="refreshPlayer()">
-                    <i class="fas fa-sync"></i>
-                </button>
-            </div>
-            
-            <!-- Volume Slider -->
-            <div style="display: flex; align-items: center; margin: 15px 0;">
-                <i class="fas fa-volume-down" style="margin-right: 10px;"></i>
-                <input type="range" min="0" max="100" value="80" id="volume-slider" style="flex-grow: 1;">
-                <i class="fas fa-volume-up" style="margin-left: 10px;"></i>
-            </div>
-            
-            <!-- Estadísticas de la radio -->
-            <div class="stats-grid">
-                <div class="stat-box">
-                    <div class="stat-value" id="stat-listeners">0</div>
-                    <div class="stat-label">Oyentes</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-value" id="stat-peak">0</div>
-                    <div class="stat-label">Pico hoy</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-value" id="stat-songs">0</div>
-                    <div class="stat-label">Canciones</div>
-                </div>
-            </div>
-            
-            <!-- Audio element -->
-            <audio id="player_audio" preload="auto"></audio>
-        </div>
-        
-        <!-- Historial de canciones -->
-        <h5 style="margin-top: 20px;">Canciones recientes</h5>
-        <ul class="collection" id="history-container" style="background-color: #1E1E1E; border: none;">
-            <li class="collection-item" style="background-color: #1E1E1E; color: white;">
-                Cargando historial...
-            </li>
-        </ul>
+    <!-- Summer banner -->
+    <div class="container summer-banner my-4">
+        <h1><i class="fas fa-umbrella-beach summer-icon"></i>Estación KUSFM - Verano 2025<i class="fas fa-ice-cream summer-icon"></i></h1>
+    </div>
 
-        <!-- ================= NUEVO: PANEL DJ LOGIN/REGISTRO ================== -->
-        <div id="dj-panel">
-            <div id="login-form">
-                <h5>Acceso DJs</h5>
-                <input type="text" id="login-username" placeholder="Usuario DJ" class="browser-default" style="margin-bottom:8px;">
-                <input type="password" id="login-password" placeholder="Contraseña" class="browser-default" style="margin-bottom:8px;">
-                <button class="btn purple darken-3" onclick="loginDJ()">Ingresar</button>
-                <p style="margin-top:10px;">¿No tienes cuenta? <a href="#" onclick="showRegister();return false;">Regístrate</a></p>
+    <!-- Marquee Noticias -->
+    <div class="container mb-2">
+        <div class="marquee" id="marqueeNoticias">
+            ¡Bienvenido a EKUSFM! 🌴 Participa en nuestros eventos de verano y pide tu canción favorita aquí abajo.
+        </div>
+    </div>
+
+    <!-- Player principal -->
+    <div class="container player-bg mb-4">
+        <div class="row align-items-center">
+            <div class="col-md-2 text-center mb-3 mb-md-0">
+                <img id="player-avatar" src="https://www.habbo.es/habbo-imaging/avatarimage?img_format=png&user=estacionkusfm&direction=2&head_direction=3&size=l&gesture=sml&action=std" class="avatar-habbo" alt="DJ Avatar">
             </div>
-            <div id="register-form" style="display:none;">
-                <h5>Registro DJ</h5>
-                <input type="text" id="register-username" placeholder="Usuario DJ" class="browser-default" style="margin-bottom:8px;">
-                <input type="password" id="register-password" placeholder="Contraseña" class="browser-default" style="margin-bottom:8px;">
-                <button class="btn purple darken-3" onclick="registerDJ()">Registrar</button>
-                <p style="margin-top:10px;">¿Ya tienes cuenta? <a href="#" onclick="showLogin();return false;">Ingresa</a></p>
+            <div class="col-md-6">
+                <h4 id="player-dj">Cargando DJ...</h4>
+                <div id="player-show">Cargando programa...</div>
+                <div id="player-listeners"><i class="fas fa-headphones"></i> <span id="listeners-count">0</span> oyentes</div>
+                <div class="d-flex align-items-center mt-2">
+                    <button class="btn btn-warning me-2" id="btnPlay"><i class="fas fa-play"></i></button>
+                    <button class="btn btn-warning me-2" id="btnMute"><i class="fas fa-volume-up"></i></button>
+                    <input type="range" id="volume-slider" min="0" max="100" value="80" class="form-range" style="width:120px;">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <img id="album-art" src="https://i.imgur.com/ITZcSUM.png" alt="Album Art" style="width:100px;border-radius:10px;box-shadow:0 1px 8px #fffde7;">
+                <div><b id="song-title">Cargando...</b></div>
+                <div id="song-artist">Cargando...</div>
+            </div>
+        </div>
+        <audio id="player_audio" preload="auto"></audio>
+        <div class="marquee mt-3" id="marquee_radio">
+            Estación KUSFM - Cargando...
+        </div>
+    </div>
+
+    <!-- Panel Peticiones -->
+    <div class="container mb-4">
+        <div class="section-title"><i class="fas fa-envelope-open-text"></i> Peticiones al DJ</div>
+        <form id="petitionForm" class="bg-orange-glass p-3 rounded mb-3">
+            <div class="row g-2 align-items-end">
+                <div class="col-12 col-md-2">
+                    <label class="form-label">Tu usuario Habbo</label>
+                    <input type="text" class="form-control" id="pet-habbo" required>
+                </div>
+                <div class="col-12 col-md-2">
+                    <label class="form-label">Tipo</label>
+                    <select class="form-select" id="pet-type" required>
+                        <option value="Canción">Canción</option>
+                        <option value="Grito">Grito</option>
+                        <option value="Dedicatoria">Dedicatoria</option>
+                        <option value="Saludo">Saludo</option>
+                        <option value="Evento">Evento</option>
+                        <option value="Chiste">Chiste</option>
+                        <option value="Sorpresa">Sorpresa</option>
+                    </select>
+                </div>
+                <div class="col-12 col-md-5">
+                    <label class="form-label">Mensaje/Petición</label>
+                    <input type="text" class="form-control" maxlength="90" id="pet-text" required>
+                </div>
+                <div class="col-12 col-md-2">
+                    <button class="btn btn-success w-100" type="submit"><i class="fas fa-paper-plane"></i> Enviar</button>
+                </div>
+            </div>
+        </form>
+        <!-- Peticiones lista -->
+        <div id="petitions-list"></div>
+    </div>
+
+    <!-- Panel DJ -->
+    <div class="container dj-panel mb-4">
+        <div class="section-title"><i class="fas fa-headphones"></i> Panel DJ</div>
+        <div id="dj-session">
+            <div id="dj-login-form">
+                <input type="text" class="form-control mb-2" id="dj-user" placeholder="Usuario DJ">
+                <input type="password" class="form-control mb-2" id="dj-pass" placeholder="Contraseña">
+                <button class="btn btn-primary mb-2" onclick="djLogin()">Ingresar</button>
+                <div>¿No tienes cuenta? <a href="#" onclick="showDjRegister();return false;">Regístrate aquí</a></div>
+            </div>
+            <div id="dj-register-form" style="display:none;">
+                <input type="text" class="form-control mb-2" id="dj-reg-user" placeholder="Usuario DJ">
+                <input type="password" class="form-control mb-2" id="dj-reg-pass" placeholder="Contraseña">
+                <button class="btn btn-success mb-2" onclick="djRegister()">Registrar</button>
+                <div>¿Ya tienes cuenta? <a href="#" onclick="showDjLogin();return false;">Ingresa aquí</a></div>
             </div>
             <div id="dj-panel-info" style="display:none;">
-                <h5>Bienvenido DJ <span id="dj-name"></span></h5>
-                <button class="btn red" onclick="logoutDJ()">Salir</button>
-                <p>Hora de México: <span id="hora-mx"></span></p>
+                <div class="mb-2">Bienvenido DJ <b id="dj-panel-name"></b></div>
+                <button class="btn btn-danger btn-sm mb-2" onclick="djLogout()">Salir</button>
+                <div>Hora MX: <span id="dj-hora-mx"></span></div>
             </div>
         </div>
-        <!-- ================= FIN PANEL DJ LOGIN/REGISTRO ================== -->
+        <div class="mt-3">
+            <button class="btn btn-warning btn-sm" onclick="showPetitionsDj()">Ver Peticiones en Vivo</button>
+            <button class="btn btn-success btn-sm" onclick="showStatsDj()">Ver Estadísticas Radio</button>
+            <button class="btn btn-info btn-sm" onclick="showSongHistoryDj()">Ver Historial Canciones</button>
+            <button class="btn btn-secondary btn-sm" onclick="showDjTools()">Herramientas DJ</button>
+            <!-- Puedes añadir hasta 150 funciones aquí usando el mismo patrón de botón y sección oculta -->
+        </div>
+        <div class="mt-3" id="dj-tools-section" style="display:none;">
+            <div class="alert alert-info py-2">Herramientas útiles para tus shows: <span class="badge bg-warning text-dark">¡Y muchas más próximamente!</span></div>
+            <ul>
+                <li>Botón para anunciar canción actual</li>
+                <li>Botón para sorteo rápido entre oyentes</li>
+                <li>Botón para enviar saludo random</li>
+                <li>Botón para activar efectos de sonido</li>
+                <li>Botón para subir encuesta en chat</li>
+                <li>Panel de mensajes privados</li>
+                <li>Panel para controlar volumen AutoDJ</li>
+                <li>Botón para cambiar avatar DJ</li>
+                <li>Botón para programar eventos futuros</li>
+                <li>Ver ranking de oyentes activos</li>
+                <!-- ...simula hasta 150 funciones útiles aquí con ideas -->
+            </ul>
+        </div>
+        <div class="mt-3" id="dj-petitions-section" style="display:none;">
+            <h6>Peticiones en Vivo</h6>
+            <div id="dj-petitions-list"></div>
+        </div>
+        <div class="mt-3" id="dj-songhistory-section" style="display:none;">
+            <h6>Historial Últimas Canciones</h6>
+            <div id="dj-songhistory-list"></div>
+        </div>
+        <div class="mt-3" id="dj-stats-section" style="display:none;">
+            <h6>Estadísticas</h6>
+            <div id="dj-stats-list"></div>
+        </div>
+    </div>
 
-        <!-- ================= NUEVO: WIDGET HORA CDMX ================== -->
-        <div style="margin: 30px 0;">
-          <div style="text-align:center;padding:1em 0;">
+    <!-- Panel Admin -->
+    <div class="container admin-panel mb-4">
+        <div class="section-title"><i class="fas fa-user-shield"></i> Panel Admin</div>
+        <div>
+            <button class="btn btn-danger btn-sm mb-2" onclick="showAdminTools()">Herramientas Admin</button>
+            <div id="admin-tools-section" style="display:none;">
+                <ul>
+                    <li>Agregar/Remover DJs</li>
+                    <li>Ver estadísticas del sitio</li>
+                    <li>Gestión de noticias/eventos</li>
+                    <li>Gestión de usuarios y rangos</li>
+                    <li>Ver logs de actividad</li>
+                    <li>Editar banner y anuncios</li>
+                    <li>Gestión de equipo (fundadores, admins, etc)</li>
+                    <!-- Simula muchas más funciones posibles aquí -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Noticias, Eventos y Equipo -->
+    <div class="container mb-4">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <div class="section-title"><i class="fas fa-newspaper"></i> Noticias</div>
+                <div id="noticias-list"></div>
+            </div>
+            <div class="col-md-6">
+                <div class="section-title"><i class="fas fa-calendar-alt"></i> Eventos</div>
+                <div id="eventos-list"></div>
+            </div>
+        </div>
+        <div class="mt-4">
+            <div class="section-title"><i class="fas fa-users"></i> Nuestro Equipo</div>
+            <div id="equipo-list" class="row g-2"></div>
+        </div>
+    </div>
+
+    <!-- Widget Hora CDMX -->
+    <div class="container my-4">
+        <div style="text-align:center;padding:1em 0;">
             <h3>
-              <a style="text-decoration:none;" href="https://www.zeitverschiebung.net/es/city/3530597" target="_blank">
-                <span style="color:gray;">Hora actual en</span><br />Mexico City, México
-              </a>
+                <a style="text-decoration:none;" href="https://www.zeitverschiebung.net/es/city/3530597" target="_blank">
+                    <span style="color:gray;">Hora actual en</span><br />Mexico City, México
+                </a>
             </h3>
             <iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=es&size=medium&timezone=America%2FMexico_City&show=hour_minute" width="100%" height="115" frameborder="0" seamless></iframe>
-          </div>
         </div>
-        <!-- ================= FIN WIDGET HORA CDMX ================== -->
-
-        <!-- ================= NUEVO: NOTICIAS Y EVENTOS ================== -->
-        <div id="noticias" style="margin:32px 0;">
-          <h5>Noticias</h5>
-          <div class="noticias-lista"></div>
-        </div>
-        <div id="eventos" style="margin:32px 0;">
-          <h5>Eventos</h5>
-          <div class="eventos-lista"></div>
-        </div>
-        <!-- ================= FIN NOTICIAS Y EVENTOS ================== -->
     </div>
-    <!-- ================= NUEVO: DISCLAIMER Y BADGE FANSITE ================== -->
-    <footer style="margin-top:40px; padding:16px 0; background:#1E1E1E; color:#fff; text-align:center;">
-      <img src="https://habsite.es/wp-content/uploads/2025/03/fansite_badge.gif" style="height:40px;vertical-align:middle;margin-right:10px;">
-      <span>
-        Hecho con ♥ por @estacionkusfm<br>
-        Se respeta la manera Habbo. Todos los derechos reservados.<br>
-        estacionkusfm no está afiliada a, respaldada, promocionada o aprobada específicamente por Sulake Corporation Oy o sus Afiliados.<br>
-        Fansite Badge<br>
-        De acuerdo a la Política de Webs fans de Habbo, esta radio puede utilizar las marcas comerciales y otras propiedades intelectuales de Habbo.
-      </span>
+
+    <!-- Disclaimer y badge -->
+    <footer class="container my-4 text-center">
+        <img src="https://habsite.es/wp-content/uploads/2025/03/fansite_badge.gif" class="badge-habbo" alt="badge">
+        <span>
+            Hecho con ♥ por @estacionkusfm<br>
+            Se respeta la manera Habbo. Todos los derechos reservados.<br>
+            estacionkusfm no está afiliada a, respaldada, promocionada o aprobada específicamente por Sulake Corporation Oy o sus Afiliados.<br>
+            Fansite Badge<br>
+            De acuerdo a la Política de Webs fans de Habbo, esta radio puede utilizar las marcas comerciales y otras propiedades intelectuales de Habbo.
+        </span>
     </footer>
-    <!-- ================= FIN DISCLAIMER Y BADGE FANSITE ================== -->
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Funciones del sitio -->
     <script>
-        // Configuración
-        const STATION_NAME = "estacionkusfm";
-        const API_URL = "https://radio.estacionkusmedios.com/api/nowplaying/" + STATION_NAME;
-        const STREAM_URL = "https://radio.estacionkusmedios.com/listen/" + STATION_NAME + "/radio.mp3";
-        
-        // Elementos DOM
-        const playerAudio = document.getElementById('player_audio');
-        const playButton = document.getElementById('btn_control');
-        const playIcon = document.getElementById('icon_control');
-        const muteIcon = document.getElementById('icon_mute');
-        const volumeSlider = document.getElementById('volume-slider');
-        const marqueeRadio = document.getElementById('marquee_radio');
-        const songTitle = document.getElementById('song-title');
-        const songArtist = document.getElementById('song-artist');
-        const albumArt = document.getElementById('album-art');
-        const locutor = document.getElementById('locutor');
-        const locutorPrograma = document.getElementById('locutor_programa');
-        const numOuvintes = document.getElementById('num_ouvintes');
-        const habboAvatar = document.getElementById('habbo-avatar');
-        const historyContainer = document.getElementById('history-container');
-        
-        // Stats
-        const statListeners = document.getElementById('stat-listeners');
-        const statPeak = document.getElementById('stat-peak');
-        const statSongs = document.getElementById('stat-songs');
-        
-        // Ejemplo de datos de DJs (reemplazar con datos reales cuando estén disponibles)
-        const djData = [
-            { name: "DJHabbo1", timeStart: "18:00", timeEnd: "20:00" },
-            { name: "DJHabbo2", timeStart: "20:00", timeEnd: "22:00" },
-            { name: "DJHabbo3", timeStart: "22:00", timeEnd: "00:00" }
-        ];
-        
-        // Configuración inicial
-        playerAudio.src = STREAM_URL;
-        playerAudio.volume = volumeSlider.value / 100;
-        setupDJs();
-        
-        // Reproducir/Pausar
-        function togglePlay() {
-            if (playerAudio.paused) {
-                playerAudio.play()
-                .then(() => {
-                    playIcon.classList.remove('fa-play');
-                    playIcon.classList.add('fa-pause');
-                })
-                .catch(e => {
-                    console.error('Error reproduciendo audio:', e);
-                    alert('Error al reproducir. Verifica tu conexión a internet.');
-                });
-            } else {
-                playerAudio.pause();
-                playIcon.classList.remove('fa-pause');
-                playIcon.classList.add('fa-play');
-            }
-        }
-        
-        // Silenciar/Desilenciar
-        function toggleMute() {
-            playerAudio.muted = !playerAudio.muted;
-            muteIcon.className = playerAudio.muted ? 'fas fa-volume-mute' : 'fas fa-volume-up';
-        }
-        
-        // Control de volumen
-        volumeSlider.addEventListener('input', function() {
-            playerAudio.volume = this.value / 100;
+    // --- Noticias y eventos demo ---
+    const noticias = [
+        { titulo:"¡Nuevo concurso!", contenido:"Participa y gana premios de verano.", fecha:"2025-06-10" },
+        { titulo:"Temporada verano", contenido:"Disfruta nuestros eventos exclusivos.", fecha:"2025-06-11" }
+    ];
+    const eventos = [
+        { titulo:"Fiesta de verano", contenido:"Gran fiesta en la playa Habbo.", fecha:"2025-06-15" },
+        { titulo:"Noche de DJs", contenido:"Maratón de música en vivo.", fecha:"2025-06-13" }
+    ];
+    // --- Equipo demo ---
+    const equipo = [
+        { user:"Fundador", habbo:"KusFM", rol:"Fundador", img:"https://www.habbo.es/habbo-imaging/avatarimage?user=KusFM&head_direction=3&size=m" },
+        { user:"Luisito", habbo:"luisitoys12", rol:"Administrador", img:"https://www.habbo.es/habbo-imaging/avatarimage?user=luisitoys12&head_direction=3&size=m" },
+        { user:"Staff1", habbo:"HabboDJ1", rol:"DJ", img:"https://www.habbo.es/habbo-imaging/avatarimage?user=HabboDJ1&head_direction=3&size=m" },
+        { user:"Staff2", habbo:"EventeroX", rol:"Eventero", img:"https://www.habbo.es/habbo-imaging/avatarimage?user=EventeroX&head_direction=3&size=m" },
+        { user:"Staff3", habbo:"Reporterita", rol:"Reportero", img:"https://www.habbo.es/habbo-imaging/avatarimage?user=Reporterita&head_direction=3&size=m" },
+        // ...simula más miembros aquí
+    ];
+
+    // --- Noticias/Equipo/Eventos render ---
+    function renderNoticias() {
+        let html = "";
+        noticias.forEach(n => {
+            html += `<div class="mb-2 bg-orange-glass p-2 rounded">
+                        <b>${n.titulo}</b> <span class="text-muted">[${n.fecha}]</span>
+                        <div>${n.contenido}</div>
+                    </div>`;
         });
-        
-        // Configurar avatares de DJs
-        function setupDJs() {
-            for (let i = 0; i < 3; i++) {
-                const dj = djData[i];
-                document.getElementById(`dj${i+1}-name`).textContent = dj.name;
-                document.getElementById(`dj${i+1}-time`).textContent = `${dj.timeStart} - ${dj.timeEnd}`;
-                document.getElementById(`dj${i+1}-avatar`).style.backgroundImage = 
-                    `url('https://www.habbo.es/habbo-imaging/avatarimage?img_format=png&user=${dj.name}&direction=2&head_direction=3&size=m&gesture=sml')`;
-            }
+        document.getElementById('noticias-list').innerHTML = html;
+    }
+    function renderEventos() {
+        let html = "";
+        eventos.forEach(e => {
+            html += `<div class="mb-2 bg-orange-glass p-2 rounded">
+                        <b>${e.titulo}</b> <span class="text-muted">[${e.fecha}]</span>
+                        <div>${e.contenido}</div>
+                    </div>`;
+        });
+        document.getElementById('eventos-list').innerHTML = html;
+    }
+    function renderEquipo() {
+        let html = "";
+        equipo.forEach(m => {
+            html += `<div class="col-12 col-md-4 team-member d-flex align-items-center">
+                        <img src="${m.img}" width="55" class="me-2 avatar-habbo" alt="${m.habbo}">
+                        <div>
+                            <div><span class="team-role">${m.rol}</span> - <b>${m.user}</b></div>
+                            <div><small>Habbo: ${m.habbo}</small></div>
+                        </div>
+                    </div>`;
+        });
+        document.getElementById('equipo-list').innerHTML = html;
+    }
+
+    // --- Peticiones ---
+    let petitions = [];
+    document.getElementById('petitionForm').onsubmit = function(e) {
+        e.preventDefault();
+        const usuario = document.getElementById('pet-habbo').value.trim();
+        const tipo = document.getElementById('pet-type').value;
+        const texto = document.getElementById('pet-text').value.trim();
+        if(usuario && texto) {
+            const pet = {
+                usuario,
+                tipo,
+                texto,
+                avatar:`https://www.habbo.es/habbo-imaging/avatarimage?user=${encodeURIComponent(usuario)}&head_direction=3&size=m`
+            };
+            petitions.push(pet);
+            renderPetitions();
+            this.reset();
         }
-        
-        // Configurar avatar de Habbo
-        function setHabboAvatar(username = "estacionkusfm") {
-            const avatarUrl = `https://www.habbo.es/habbo-imaging/avatarimage?img_format=png&user=${username}&direction=2&head_direction=3&size=l&gesture=sml&action=std`;
-            habboAvatar.style.backgroundImage = `url('${avatarUrl}')`;
-        }
-        
-        // Refrescar reproductor
-        function refreshPlayer() {
-            playerAudio.load();
-            
-            if (!playerAudio.paused) {
-                playerAudio.play()
-                .catch(e => console.error('Error al refrescar:', e));
-            }
-            
-            fetchNowPlaying();
-        }
-        
-        // Formatear tiempo
-        function formatTime(timestamp) {
-            const date = new Date(timestamp * 1000);
-            const hours = date.getHours().toString().padStart(2, '0');
-            const minutes = date.getMinutes().toString().padStart(2, '0');
-            return `${hours}:${minutes}`;
-        }
-        
-        // Actualizar historial de canciones
-        function updateHistory(tracks) {
-            historyContainer.innerHTML = '';
-            
-            if (!tracks || tracks.length === 0) {
-                historyContainer.innerHTML = '<li class="collection-item" style="background-color: #1E1E1E; color: white;">No hay historial disponible</li>';
+    };
+    function renderPetitions() {
+        let html = "";
+        petitions.slice(-10).reverse().forEach(p => {
+            html += `<div class="request-card d-flex align-items-center">
+                        <img src="${p.avatar}" class="avatar-habbo me-2" width="40" alt="${p.usuario}">
+                        <div>
+                            <b>${p.usuario}</b> <span class="badge bg-info text-dark">${p.tipo}</span>
+                            <div>${p.texto}</div>
+                        </div>
+                    </div>`;
+        });
+        document.getElementById('petitions-list').innerHTML = html;
+        document.getElementById('dj-petitions-list').innerHTML = html;
+    }
+
+    // --- Panel DJ login/registro/session ---
+    function showDjRegister() {
+        document.getElementById('dj-login-form').style.display = "none";
+        document.getElementById('dj-register-form').style.display = "block";
+    }
+    function showDjLogin() {
+        document.getElementById('dj-register-form').style.display = "none";
+        document.getElementById('dj-login-form').style.display = "block";
+    }
+    function djRegister() {
+        const user = document.getElementById('dj-reg-user').value.trim();
+        const pass = document.getElementById('dj-reg-pass').value;
+        if(user && pass) {
+            if(localStorage.getItem('dj_' + user)) {
+                alert("Ese usuario ya está registrado.");
                 return;
             }
-            
-            tracks.forEach((track, index) => {
-                if (index === 0) return; // Saltar la canción actual
-                
-                const li = document.createElement('li');
-                li.className = 'collection-item';
-                li.style.backgroundColor = '#1E1E1E';
-                li.style.color = 'white';
-                li.style.borderBottom = '1px solid #333';
-                
-                li.innerHTML = `
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <div>
-                            <strong>${track.song.title}</strong>
-                            <p style="margin: 0; color: #AAA;">${track.song.artist}</p>
-                        </div>
-                        <span style="color: #AAA;">${formatTime(track.played_at)}</span>
-                    </div>
-                `;
-                
-                historyContainer.appendChild(li);
-            });
-        }
-        
-        // Obtener datos actuales de la radio
-        function fetchNowPlaying() {
-            fetch(API_URL)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Error HTTP: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Actualizar información de la canción
-                    const nowPlaying = data.now_playing;
-                    songTitle.textContent = nowPlaying.song.title || "Desconocido";
-                    songArtist.textContent = nowPlaying.song.artist || "Desconocido";
-                    
-                    // Actualizar marquee
-                    marqueeRadio.innerHTML = `<span>Estación KUSFM - ${nowPlaying.song.title} - ${nowPlaying.song.artist}</span>`;
-                    
-                    // Actualizar imagen del álbum
-                    albumArt.src = nowPlaying.song.art || "https://i.imgur.com/ITZcSUM.png";
-                    
-                    // Actualizar información del DJ
-                    const djName = data.live.is_live ? data.live.streamer_name : "AutoDJ";
-                    const showName = data.live.is_live ? "Programa en vivo" : "Emisión Automática";
-                    
-                    locutor.textContent = djName;
-                    locutorPrograma.textContent = showName;
-                    
-                    // Actualizar avatar de Habbo
-                    setHabboAvatar(data.live.is_live ? data.live.streamer_name : "estacionkusfm");
-                    
-                    // Actualizar stats
-                    numOuvintes.textContent = data.listeners.current;
-                    statListeners.textContent = data.listeners.current;
-                    statPeak.textContent = data.listeners.unique;
-                    statSongs.textContent = data.song_history.length;
-                    
-                    // Actualizar historial
-                    updateHistory(data.song_history);
-                })
-                .catch(error => {
-                    console.error('Error al obtener datos:', error);
-                    marqueeRadio.innerHTML = "<span>Estación KUSFM - Error al cargar información</span>";
-                });
-        }
-        
-        // Manejar errores de audio
-        playerAudio.addEventListener('error', function() {
-            console.error('Error de audio:', playerAudio.error);
-            playIcon.classList.remove('fa-pause');
-            playIcon.classList.add('fa-play');
-            alert("Error en la transmisión. Intenta refrescar el reproductor.");
-        });
-        
-        // Inicializar
-        window.addEventListener('DOMContentLoaded', function() {
-            setHabboAvatar("estacionkusfm");
-            fetchNowPlaying();
-            
-            // Actualizar cada 15 segundos
-            setInterval(fetchNowPlaying, 15000);
-        });
-
-        // ===================== NUEVO: PANEL DJ LOGIN/REGISTRO Y NOTICIAS/EVENTOS ======================
-        // Panel DJ Login/Registro (LocalStorage DEMO)
-        function showRegister() {
-          document.getElementById('login-form').style.display = "none";
-          document.getElementById('register-form').style.display = "block";
-        }
-        function showLogin() {
-          document.getElementById('register-form').style.display = "none";
-          document.getElementById('login-form').style.display = "block";
-        }
-        function registerDJ() {
-          const user = document.getElementById('register-username').value.trim();
-          const pass = document.getElementById('register-password').value;
-          if(user && pass) {
-            if(localStorage.getItem('dj_'+user)) {
-              alert("Ese usuario ya está registrado.");
-              return;
-            }
-            localStorage.setItem('dj_'+user, pass);
+            localStorage.setItem('dj_' + user, pass);
             alert("¡Registro exitoso!");
-            showLogin();
-          } else {
+            showDjLogin();
+        } else {
             alert("Completa todos los campos.");
-          }
         }
-        function loginDJ() {
-          const user = document.getElementById('login-username').value.trim();
-          const pass = document.getElementById('login-password').value;
-          if(localStorage.getItem('dj_'+user) === pass && user && pass) {
+    }
+    function djLogin() {
+        const user = document.getElementById('dj-user').value.trim();
+        const pass = document.getElementById('dj-pass').value;
+        if(localStorage.getItem('dj_' + user) === pass && user && pass) {
             localStorage.setItem('dj_session', user);
-            showDJPanel(user);
-          } else {
+            showDjPanel(user);
+        } else {
             alert("Usuario o contraseña incorrectos.");
-          }
         }
-        function showDJPanel(user) {
-          document.getElementById('login-form').style.display = "none";
-          document.getElementById('register-form').style.display = "none";
-          document.getElementById('dj-panel-info').style.display = "block";
-          document.getElementById('dj-name').textContent = user;
-          updateHoraMexico();
-        }
-        function logoutDJ() {
-          localStorage.removeItem('dj_session');
-          document.getElementById('dj-panel-info').style.display = "none";
-          showLogin();
-        }
-        function updateHoraMexico() {
-          const now = new Date();
-          let utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-          let horaMX = new Date(utc + (3600000 * -6)); // UTC-6, ajusta si usas horario verano
-          document.getElementById('hora-mx').textContent = horaMX.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
-        }
-        setInterval(function() {
-          if(document.getElementById('dj-panel-info').style.display === "block") updateHoraMexico();
-        }, 60000);
-        window.addEventListener('DOMContentLoaded', function() {
-          const session = localStorage.getItem('dj_session');
-          if(session) showDJPanel(session);
-          else showLogin();
-        });
+    }
+    function showDjPanel(user) {
+        document.getElementById('dj-login-form').style.display = "none";
+        document.getElementById('dj-register-form').style.display = "none";
+        document.getElementById('dj-panel-info').style.display = "block";
+        document.getElementById('dj-panel-name').textContent = user;
+        updateHoraDj();
+    }
+    function djLogout() {
+        localStorage.removeItem('dj_session');
+        document.getElementById('dj-panel-info').style.display = "none";
+        showDjLogin();
+    }
+    function updateHoraDj() {
+        const now = new Date();
+        let utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+        let horaMX = new Date(utc + (3600000 * -6));
+        document.getElementById('dj-hora-mx').textContent = horaMX.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
+    }
+    setInterval(() => {
+        if(document.getElementById('dj-panel-info').style.display === "block") updateHoraDj();
+    }, 60000);
 
-        // Noticias/Eventos DEMO (puedes editar)
-        const noticias = [
-          { titulo: "¡Nuevo concurso de Habbo!", contenido: "Participa y gana premios exclusivos en nuestro fansite.", fecha: "2025-06-10" },
-          { titulo: "Nueva interfaz EKUSFM 5.0", contenido: "¡Explora nuestro nuevo panel y funciones exclusivas para DJs!", fecha: "2025-06-10" }
-        ];
-        const eventos = [
-          { titulo: "Evento especial DJ", contenido: "No te pierdas la sesión especial con premios y diversión.", fecha: "2025-06-15" },
-          { titulo: "Maratón musical", contenido: "Este viernes, música sin parar desde las 6PM hora México.", fecha: "2025-06-13" }
-        ];
-        function renderNoticias() {
-          const contenedor = document.querySelector('.noticias-lista');
-          if(!contenedor) return;
-          contenedor.innerHTML = '';
-          noticias.forEach(n => {
-            contenedor.innerHTML += `<article><h6>${n.titulo}</h6><p>${n.contenido}</p><span>${n.fecha}</span></article>`;
-          });
+    // --- Secciones DJ Panel ---
+    function showPetitionsDj() {
+        document.getElementById('dj-petitions-section').style.display = "";
+        document.getElementById('dj-songhistory-section').style.display = "none";
+        document.getElementById('dj-stats-section').style.display = "none";
+        document.getElementById('dj-tools-section').style.display = "none";
+    }
+    function showSongHistoryDj() {
+        document.getElementById('dj-songhistory-section').style.display = "";
+        document.getElementById('dj-petitions-section').style.display = "none";
+        document.getElementById('dj-stats-section').style.display = "none";
+        document.getElementById('dj-tools-section').style.display = "none";
+        // Demo historial canciones
+        document.getElementById('dj-songhistory-list').innerHTML = "<ul><li>Canción 1</li><li>Canción 2</li><li>Canción 3</li></ul>";
+    }
+    function showStatsDj() {
+        document.getElementById('dj-stats-section').style.display = "";
+        document.getElementById('dj-petitions-section').style.display = "none";
+        document.getElementById('dj-songhistory-section').style.display = "none";
+        document.getElementById('dj-tools-section').style.display = "none";
+        // Demo stats
+        document.getElementById('dj-stats-list').innerHTML = "<b>Oyentes:</b> 25 <br><b>Pico hoy:</b> 120 <br><b>Canciones:</b> 300";
+    }
+    function showDjTools() {
+        document.getElementById('dj-tools-section').style.display = "";
+        document.getElementById('dj-petitions-section').style.display = "none";
+        document.getElementById('dj-songhistory-section').style.display = "none";
+        document.getElementById('dj-stats-section').style.display = "none";
+    }
+
+    // --- Panel Admin funciones demo ---
+    function showAdminTools() {
+        let sec = document.getElementById('admin-tools-section');
+        sec.style.display = sec.style.display === "none" ? "" : "none";
+    }
+
+    // --- Player radio demo (personaliza esto con tu backend real o API radio) ---
+    let playing = false;
+    const audio = document.getElementById('player_audio');
+    document.getElementById('btnPlay').onclick = function() {
+        if(!playing) {
+            audio.play();
+            playing = true;
+            this.innerHTML = '<i class="fas fa-pause"></i>';
+        } else {
+            audio.pause();
+            playing = false;
+            this.innerHTML = '<i class="fas fa-play"></i>';
         }
-        function renderEventos() {
-          const contenedor = document.querySelector('.eventos-lista');
-          if(!contenedor) return;
-          contenedor.innerHTML = '';
-          eventos.forEach(e => {
-            contenedor.innerHTML += `<article><h6>${e.titulo}</h6><p>${e.contenido}</p><span>${e.fecha}</span></article>`;
-          });
-        }
-        window.addEventListener('DOMContentLoaded', function() {
-          renderNoticias();
-          renderEventos();
-        });
-        // ===================== FIN NUEVO ======================
+    };
+    document.getElementById('btnMute').onclick = function() {
+        audio.muted = !audio.muted;
+        this.innerHTML = audio.muted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
+    };
+    document.getElementById('volume-slider').oninput = function() {
+        audio.volume = this.value / 100;
+    };
+
+    // --- Render inicial y login persistente DJ ---
+    window.onload = function() {
+        renderNoticias();
+        renderEventos();
+        renderEquipo();
+        renderPetitions();
+        // DJ login persistente
+        const session = localStorage.getItem('dj_session');
+        if(session) showDjPanel(session);
+        else showDjLogin();
+    };
     </script>
 </body>
 </html>
