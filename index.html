@@ -117,21 +117,89 @@
             .player-bg {padding: 1rem;}
             .summer-banner h1 {font-size: 1.3rem;}
         }
+
+        /* NUEVO: Para el contenedor de metadata */
+        #radio-metadata-fixed {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            background: #222c;
+            color: #fff;
+            padding: 16px 20px;
+            border-radius: 12px;
+            z-index: 1000;
+            min-width: 180px;
+            max-width: 270px;
+            box-shadow: 0 4px 18px #0009;
+            font-size: 1rem;
+        }
+        #radio-metadata-fixed strong {
+            color: #ffb300;
+            font-size: 1.08em;
+        }
+        /* NUEVO: Siguiente DJ y anotados */
+        #dj-next-section {
+            position: fixed;
+            bottom: 22px;
+            right: 18px;
+            z-index: 1000;
+            background: #fffdeee0;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px #ffd54fa0;
+            padding: 16px 18px;
+            min-width: 180px;
+            max-width: 320px;
+        }
+        #dj-next-section h5 {
+            margin: 0 0 5px 0;
+            color: #e65100;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        #dj-anotados-list {
+            margin: 0; padding: 0 0 0 10px; 
+            list-style: none;
+            font-size: 0.97em;
+        }
+        #dj-anotados-list li {
+            margin-bottom: 2px;
+        }
+        /* NUEVO: Explicación DJ panel */
+        #dj-discord-instruccion {
+            background: #f3e5f5;
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin-top: 18px;
+            color: #6a1b9a;
+            font-size: 1em;
+        }
     </style>
 </head>
 <body>
+    <!-- NUEVO: Metadata radio arriba a la derecha -->
+    <div id="radio-metadata-fixed">
+        <div><strong>Canción:</strong> <span id="meta-song-title">Cargando...</span></div>
+        <div><strong>Artista:</strong> <span id="meta-song-artist">Cargando...</span></div>
+        <div><strong>Oyentes:</strong> <span id="meta-listeners">0</span></div>
+    </div>
+    <!-- NUEVO: Siguiente DJ y lista de anotados abajo derecha -->
+    <div id="dj-next-section">
+        <h5><i class="fas fa-user-clock"></i> Siguiente DJ</h5>
+        <div><b id="dj-next-nombre">Cargando...</b></div>
+        <div class="mb-1"><small id="dj-next-hora">Cargando...</small></div>
+        <div style="font-size:0.97em;color:#f57c00;"><b>DJs anotados:</b></div>
+        <ul id="dj-anotados-list"></ul>
+    </div>
     <!-- Summer banner -->
     <div class="container summer-banner my-4">
         <h1><i class="fas fa-umbrella-beach summer-icon"></i>Estación KUSFM - Verano 2025<i class="fas fa-ice-cream summer-icon"></i></h1>
     </div>
-
     <!-- Marquee Noticias -->
     <div class="container mb-2">
         <div class="marquee" id="marqueeNoticias">
             ¡Bienvenido a EKUSFM! 🌴 Participa en nuestros eventos de verano y pide tu canción favorita aquí abajo.
         </div>
     </div>
-
     <!-- Player principal compatible Azuracast -->
     <div class="container player-bg mb-4">
         <div class="row align-items-center">
@@ -159,7 +227,6 @@
             Estación KUSFM - Cargando...
         </div>
     </div>
-
     <!-- Panel Peticiones -->
     <div class="container mb-4">
         <div class="section-title"><i class="fas fa-envelope-open-text"></i> Peticiones al DJ</div>
@@ -193,7 +260,6 @@
         <!-- Peticiones lista -->
         <div id="petitions-list"></div>
     </div>
-
     <!-- Panel DJ -->
     <div class="container dj-panel mb-4">
         <div class="section-title"><i class="fas fa-headphones"></i> Panel DJ</div>
@@ -214,6 +280,15 @@
                 <div class="mb-2">Bienvenido DJ <b id="dj-panel-name"></b></div>
                 <button class="btn btn-danger btn-sm mb-2" onclick="djLogout()">Salir</button>
                 <div>Hora MX: <span id="dj-hora-mx"></span></div>
+                <!-- NUEVO: Instrucción Discord -->
+                <div id="dj-discord-instruccion">
+                    <b>¿Cómo anotarte como DJ desde Discord?</b>
+                    <ol style="margin-bottom:0;">
+                        <li>Escribe en el canal de Discord: <code>/anotarse keko:TuHabboKeko</code></li>
+                        <li>¡Listo! Tu usuario y keko aparecerán automáticamente en la web.</li>
+                        <li>Para quitarte, usa <code>/desanotarse</code> o para cambiar keko <code>/editar keko:NuevoKeko</code></li>
+                    </ol>
+                </div>
             </div>
         </div>
         <div class="mt-3">
@@ -252,7 +327,6 @@
             <div id="dj-stats-list"></div>
         </div>
     </div>
-
     <!-- Panel Admin -->
     <div class="container admin-panel mb-4">
         <div class="section-title"><i class="fas fa-user-shield"></i> Panel Admin</div>
@@ -272,7 +346,6 @@
             </div>
         </div>
     </div>
-
     <!-- Noticias, Eventos y Equipo -->
     <div class="container mb-4">
         <div class="row g-3">
@@ -290,7 +363,6 @@
             <div id="equipo-list" class="row g-2"></div>
         </div>
     </div>
-
     <!-- Widget Hora CDMX -->
     <div class="container my-4">
         <div style="text-align:center;padding:1em 0;">
@@ -302,7 +374,6 @@
             <iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=es&size=medium&timezone=America%2FMexico_City&show=hour_minute" width="100%" height="115" frameborder="0" seamless></iframe>
         </div>
     </div>
-
     <!-- Disclaimer y badge -->
     <footer class="container my-4 text-center">
         <img src="https://habsite.es/wp-content/uploads/2025/03/fansite_badge.gif" class="badge-habbo" alt="badge">
@@ -314,7 +385,6 @@
             De acuerdo a la Política de Webs fans de Habbo, esta radio puede utilizar las marcas comerciales y otras propiedades intelectuales de Habbo.
         </span>
     </footer>
-
     <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Funciones del sitio y Player Azuracast -->
@@ -334,6 +404,11 @@
     const playerShow = document.getElementById('player-show');
     const listenersCount = document.getElementById('listeners-count');
     const playerAvatar = document.getElementById('player-avatar');
+
+    // NUEVO: elementos metadata
+    const metaSongTitle = document.getElementById('meta-song-title');
+    const metaSongArtist = document.getElementById('meta-song-artist');
+    const metaListeners = document.getElementById('meta-listeners');
 
     audio.src = STREAM_URL;
     audio.volume = 0.8;
@@ -374,13 +449,65 @@
 
             // Oyentes
             listenersCount.textContent = data.listeners.current;
+
+            // NUEVO: Actualiza metadata fija
+            metaSongTitle.textContent = data.now_playing.song.title || "Desconocido";
+            metaSongArtist.textContent = data.now_playing.song.artist || "Desconocido";
+            metaListeners.textContent = data.listeners.current || "0";
         })
         .catch(()=> {
             marquee.textContent = "Error al cargar información";
+            // NUEVO: Error fallback metadata
+            metaSongTitle.textContent = "Desconocido";
+            metaSongArtist.textContent = "Desconocido";
+            metaListeners.textContent = "0";
         });
     }
     setInterval(fetchRadioInfo, 15000);
     fetchRadioInfo();
+
+    // NUEVO: Siguiente DJ automático
+    const djSchedule = [
+        { hour: 0, name: "DJNoche", horaTxt: "00:00 - 08:00" },
+        { hour: 8, name: "DJMañana", horaTxt: "08:00 - 16:00" },
+        { hour: 16, name: "DJTarde", horaTxt: "16:00 - 00:00" }
+    ];
+    function getNextDJ() {
+        const now = new Date();
+        const hour = now.getHours();
+        let next = djSchedule[0];
+        for (let i = 0; i < djSchedule.length; i++) {
+            if (hour < djSchedule[i].hour) {
+                next = djSchedule[i];
+                break;
+            }
+        }
+        // Si ya pasó, es el primero
+        if (hour >= djSchedule[djSchedule.length-1].hour) next = djSchedule[0];
+        document.getElementById('dj-next-nombre').textContent = next.name;
+        document.getElementById('dj-next-hora').textContent = next.horaTxt;
+    }
+    setInterval(getNextDJ, 60000);
+    getNextDJ();
+
+    // NUEVO: DJs anotados desde Discord (simulación)
+    // Debes reemplazar por fetch a tu endpoint webhook real, aquí es ejemplo local:
+    let anotados = [
+        { usuario: "DJMañana", keko: "habbo1" },
+        { usuario: "DJNoche", keko: "habbo2" }
+    ];
+    function renderAnotados() {
+        // Si tienes un endpoint, reemplaza este array por fetch('...').then...
+        // Ejemplo:
+        // fetch('URL_DEL_ENDPOINT').then(r=>r.json()).then(anotados=>{...});
+        let ul = document.getElementById('dj-anotados-list');
+        ul.innerHTML = "";
+        anotados.forEach(dj => {
+            ul.innerHTML += `<li><b>${dj.usuario}</b> <span style="color:#888;">(${dj.keko})</span></li>`;
+        });
+    }
+    setInterval(renderAnotados, 10000);
+    renderAnotados();
 
     // ========== Noticias, Eventos, Equipo (igual que antes) ==========
     const noticias = [
