@@ -173,6 +173,31 @@
             font-size: 14px;
             color: #AAA;
         }
+
+        /* NUEVO: Estilos noticias/eventos */
+        .noticias-lista article, .eventos-lista article {
+            background: #222;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+        .noticias-lista h6, .eventos-lista h6 {
+            color: #ffdb58;
+            margin: 0 0 6px 0;
+        }
+        .noticias-lista span, .eventos-lista span {
+            color: #aaa;
+            font-size: .92em;
+        }
+        /* NUEVO: Estilo DJ panel */
+        #dj-panel {
+            max-width: 400px;
+            margin: 32px auto;
+            background: #181838;
+            border-radius: 10px;
+            padding: 16px;
+            box-shadow: 0 2px 8px #000a;
+        }
     </style>
 </head>
 <body>
@@ -270,8 +295,67 @@
                 Cargando historial...
             </li>
         </ul>
+
+        <!-- ================= NUEVO: PANEL DJ LOGIN/REGISTRO ================== -->
+        <div id="dj-panel">
+            <div id="login-form">
+                <h5>Acceso DJs</h5>
+                <input type="text" id="login-username" placeholder="Usuario DJ" class="browser-default" style="margin-bottom:8px;">
+                <input type="password" id="login-password" placeholder="Contraseña" class="browser-default" style="margin-bottom:8px;">
+                <button class="btn purple darken-3" onclick="loginDJ()">Ingresar</button>
+                <p style="margin-top:10px;">¿No tienes cuenta? <a href="#" onclick="showRegister();return false;">Regístrate</a></p>
+            </div>
+            <div id="register-form" style="display:none;">
+                <h5>Registro DJ</h5>
+                <input type="text" id="register-username" placeholder="Usuario DJ" class="browser-default" style="margin-bottom:8px;">
+                <input type="password" id="register-password" placeholder="Contraseña" class="browser-default" style="margin-bottom:8px;">
+                <button class="btn purple darken-3" onclick="registerDJ()">Registrar</button>
+                <p style="margin-top:10px;">¿Ya tienes cuenta? <a href="#" onclick="showLogin();return false;">Ingresa</a></p>
+            </div>
+            <div id="dj-panel-info" style="display:none;">
+                <h5>Bienvenido DJ <span id="dj-name"></span></h5>
+                <button class="btn red" onclick="logoutDJ()">Salir</button>
+                <p>Hora de México: <span id="hora-mx"></span></p>
+            </div>
+        </div>
+        <!-- ================= FIN PANEL DJ LOGIN/REGISTRO ================== -->
+
+        <!-- ================= NUEVO: WIDGET HORA CDMX ================== -->
+        <div style="margin: 30px 0;">
+          <div style="text-align:center;padding:1em 0;">
+            <h3>
+              <a style="text-decoration:none;" href="https://www.zeitverschiebung.net/es/city/3530597" target="_blank">
+                <span style="color:gray;">Hora actual en</span><br />Mexico City, México
+              </a>
+            </h3>
+            <iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=es&size=medium&timezone=America%2FMexico_City&show=hour_minute" width="100%" height="115" frameborder="0" seamless></iframe>
+          </div>
+        </div>
+        <!-- ================= FIN WIDGET HORA CDMX ================== -->
+
+        <!-- ================= NUEVO: NOTICIAS Y EVENTOS ================== -->
+        <div id="noticias" style="margin:32px 0;">
+          <h5>Noticias</h5>
+          <div class="noticias-lista"></div>
+        </div>
+        <div id="eventos" style="margin:32px 0;">
+          <h5>Eventos</h5>
+          <div class="eventos-lista"></div>
+        </div>
+        <!-- ================= FIN NOTICIAS Y EVENTOS ================== -->
     </div>
-    
+    <!-- ================= NUEVO: DISCLAIMER Y BADGE FANSITE ================== -->
+    <footer style="margin-top:40px; padding:16px 0; background:#1E1E1E; color:#fff; text-align:center;">
+      <img src="https://habsite.es/wp-content/uploads/2025/03/fansite_badge.gif" style="height:40px;vertical-align:middle;margin-right:10px;">
+      <span>
+        Hecho con ♥ por @estacionkusfm<br>
+        Se respeta la manera Habbo. Todos los derechos reservados.<br>
+        estacionkusfm no está afiliada a, respaldada, promocionada o aprobada específicamente por Sulake Corporation Oy o sus Afiliados.<br>
+        Fansite Badge<br>
+        De acuerdo a la Política de Webs fans de Habbo, esta radio puede utilizar las marcas comerciales y otras propiedades intelectuales de Habbo.
+      </span>
+    </footer>
+    <!-- ================= FIN DISCLAIMER Y BADGE FANSITE ================== -->
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     
@@ -475,6 +559,99 @@
             // Actualizar cada 15 segundos
             setInterval(fetchNowPlaying, 15000);
         });
+
+        // ===================== NUEVO: PANEL DJ LOGIN/REGISTRO Y NOTICIAS/EVENTOS ======================
+        // Panel DJ Login/Registro (LocalStorage DEMO)
+        function showRegister() {
+          document.getElementById('login-form').style.display = "none";
+          document.getElementById('register-form').style.display = "block";
+        }
+        function showLogin() {
+          document.getElementById('register-form').style.display = "none";
+          document.getElementById('login-form').style.display = "block";
+        }
+        function registerDJ() {
+          const user = document.getElementById('register-username').value.trim();
+          const pass = document.getElementById('register-password').value;
+          if(user && pass) {
+            if(localStorage.getItem('dj_'+user)) {
+              alert("Ese usuario ya está registrado.");
+              return;
+            }
+            localStorage.setItem('dj_'+user, pass);
+            alert("¡Registro exitoso!");
+            showLogin();
+          } else {
+            alert("Completa todos los campos.");
+          }
+        }
+        function loginDJ() {
+          const user = document.getElementById('login-username').value.trim();
+          const pass = document.getElementById('login-password').value;
+          if(localStorage.getItem('dj_'+user) === pass && user && pass) {
+            localStorage.setItem('dj_session', user);
+            showDJPanel(user);
+          } else {
+            alert("Usuario o contraseña incorrectos.");
+          }
+        }
+        function showDJPanel(user) {
+          document.getElementById('login-form').style.display = "none";
+          document.getElementById('register-form').style.display = "none";
+          document.getElementById('dj-panel-info').style.display = "block";
+          document.getElementById('dj-name').textContent = user;
+          updateHoraMexico();
+        }
+        function logoutDJ() {
+          localStorage.removeItem('dj_session');
+          document.getElementById('dj-panel-info').style.display = "none";
+          showLogin();
+        }
+        function updateHoraMexico() {
+          const now = new Date();
+          let utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+          let horaMX = new Date(utc + (3600000 * -6)); // UTC-6, ajusta si usas horario verano
+          document.getElementById('hora-mx').textContent = horaMX.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
+        }
+        setInterval(function() {
+          if(document.getElementById('dj-panel-info').style.display === "block") updateHoraMexico();
+        }, 60000);
+        window.addEventListener('DOMContentLoaded', function() {
+          const session = localStorage.getItem('dj_session');
+          if(session) showDJPanel(session);
+          else showLogin();
+        });
+
+        // Noticias/Eventos DEMO (puedes editar)
+        const noticias = [
+          { titulo: "¡Nuevo concurso de Habbo!", contenido: "Participa y gana premios exclusivos en nuestro fansite.", fecha: "2025-06-10" },
+          { titulo: "Nueva interfaz EKUSFM 5.0", contenido: "¡Explora nuestro nuevo panel y funciones exclusivas para DJs!", fecha: "2025-06-10" }
+        ];
+        const eventos = [
+          { titulo: "Evento especial DJ", contenido: "No te pierdas la sesión especial con premios y diversión.", fecha: "2025-06-15" },
+          { titulo: "Maratón musical", contenido: "Este viernes, música sin parar desde las 6PM hora México.", fecha: "2025-06-13" }
+        ];
+        function renderNoticias() {
+          const contenedor = document.querySelector('.noticias-lista');
+          if(!contenedor) return;
+          contenedor.innerHTML = '';
+          noticias.forEach(n => {
+            contenedor.innerHTML += `<article><h6>${n.titulo}</h6><p>${n.contenido}</p><span>${n.fecha}</span></article>`;
+          });
+        }
+        function renderEventos() {
+          const contenedor = document.querySelector('.eventos-lista');
+          if(!contenedor) return;
+          contenedor.innerHTML = '';
+          eventos.forEach(e => {
+            contenedor.innerHTML += `<article><h6>${e.titulo}</h6><p>${e.contenido}</p><span>${e.fecha}</span></article>`;
+          });
+        }
+        window.addEventListener('DOMContentLoaded', function() {
+          renderNoticias();
+          renderEventos();
+        });
+        // ===================== FIN NUEVO ======================
     </script>
 </body>
 </html>
