@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>Estación KUSFM - Versión Pro</title>
+    <title>Estación KUSFM - Verano Pro</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="theme-color" content="#453D79">
@@ -111,10 +111,8 @@
         .mb-6 { margin-bottom: 3rem !important;}
         .form-label { font-weight: 500; color: #e65100;}
         .form-control, .form-select { background: #fffde7;}
-        /* Scrollbar */
         ::-webkit-scrollbar {width: 10px; background: #ffe082;}
         ::-webkit-scrollbar-thumb {background: #ffb300; border-radius: 5px;}
-        /* Responsive */
         @media (max-width: 700px) {
             .player-bg {padding: 1rem;}
             .summer-banner h1 {font-size: 1.3rem;}
@@ -134,7 +132,7 @@
         </div>
     </div>
 
-    <!-- Player principal -->
+    <!-- Player principal compatible Azuracast -->
     <div class="container player-bg mb-4">
         <div class="row align-items-center">
             <div class="col-md-2 text-center mb-3 mb-md-0">
@@ -156,7 +154,7 @@
                 <div id="song-artist">Cargando...</div>
             </div>
         </div>
-        <audio id="player_audio" preload="auto"></audio>
+        <audio id="player_audio" preload="auto" src="https://radio.trabullnetwork.pro/listen/estacionkusfm/radio.mp3"></audio>
         <div class="marquee mt-3" id="marquee_radio">
             Estación KUSFM - Cargando...
         </div>
@@ -319,9 +317,72 @@
 
     <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Funciones del sitio -->
+    <!-- Funciones del sitio y Player Azuracast -->
     <script>
-    // --- Noticias y eventos demo ---
+    // ================== PLAYER AZURACAST ==================
+    const STATION_NAME = "estacionkusfm";
+    const API_URL = "https://radio.trabullnetwork.pro/api/nowplaying/" + STATION_NAME;
+    const STREAM_URL = "https://radio.trabullnetwork.pro/listen/" + STATION_NAME + "/radio.mp3";
+    const audio = document.getElementById('player_audio');
+    const playBtn = document.getElementById('btnPlay');
+    const muteBtn = document.getElementById('btnMute');
+    const marquee = document.getElementById('marquee_radio');
+    const songTitle = document.getElementById('song-title');
+    const songArtist = document.getElementById('song-artist');
+    const albumArt = document.getElementById('album-art');
+    const playerDj = document.getElementById('player-dj');
+    const playerShow = document.getElementById('player-show');
+    const listenersCount = document.getElementById('listeners-count');
+    const playerAvatar = document.getElementById('player-avatar');
+
+    audio.src = STREAM_URL;
+    audio.volume = 0.8;
+
+    playBtn.onclick = function() {
+        if(audio.paused) {
+            audio.play();
+            playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        } else {
+            audio.pause();
+            playBtn.innerHTML = '<i class="fas fa-play"></i>';
+        }
+    };
+    muteBtn.onclick = function() {
+        audio.muted = !audio.muted;
+        muteBtn.innerHTML = audio.muted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
+    };
+    document.getElementById('volume-slider').oninput = function() {
+        audio.volume = this.value/100;
+    };
+
+    function fetchRadioInfo() {
+        fetch(API_URL)
+        .then(res => res.json())
+        .then(data => {
+            // Info de la canción
+            songTitle.textContent = data.now_playing.song.title || "Desconocido";
+            songArtist.textContent = data.now_playing.song.artist || "Desconocido";
+            albumArt.src = data.now_playing.song.art || "https://i.imgur.com/ITZcSUM.png";
+            marquee.textContent = `Estación KUSFM - ${data.now_playing.song.title} - ${data.now_playing.song.artist}`;
+
+            // Info de DJ
+            const djName = data.live.is_live ? data.live.streamer_name : "AutoDJ";
+            const showName = data.live.is_live ? "Programa en vivo" : "Emisión Automática";
+            playerDj.textContent = djName;
+            playerShow.textContent = showName;
+            playerAvatar.src = `https://www.habbo.es/habbo-imaging/avatarimage?img_format=png&user=${encodeURIComponent(djName)}&direction=2&head_direction=3&size=l&gesture=sml&action=std`;
+
+            // Oyentes
+            listenersCount.textContent = data.listeners.current;
+        })
+        .catch(()=> {
+            marquee.textContent = "Estación KUSFM - Error al cargar información";
+        });
+    }
+    setInterval(fetchRadioInfo, 15000);
+    fetchRadioInfo();
+
+    // ========== Noticias, Eventos, Equipo (igual que antes) ==========
     const noticias = [
         { titulo:"¡Nuevo concurso!", contenido:"Participa y gana premios de verano.", fecha:"2025-06-10" },
         { titulo:"Temporada verano", contenido:"Disfruta nuestros eventos exclusivos.", fecha:"2025-06-11" }
@@ -330,17 +391,13 @@
         { titulo:"Fiesta de verano", contenido:"Gran fiesta en la playa Habbo.", fecha:"2025-06-15" },
         { titulo:"Noche de DJs", contenido:"Maratón de música en vivo.", fecha:"2025-06-13" }
     ];
-    // --- Equipo demo ---
     const equipo = [
         { user:"Fundador", habbo:"KusFM", rol:"Fundador", img:"https://www.habbo.es/habbo-imaging/avatarimage?user=KusFM&head_direction=3&size=m" },
         { user:"Luisito", habbo:"luisitoys12", rol:"Administrador", img:"https://www.habbo.es/habbo-imaging/avatarimage?user=luisitoys12&head_direction=3&size=m" },
         { user:"Staff1", habbo:"HabboDJ1", rol:"DJ", img:"https://www.habbo.es/habbo-imaging/avatarimage?user=HabboDJ1&head_direction=3&size=m" },
         { user:"Staff2", habbo:"EventeroX", rol:"Eventero", img:"https://www.habbo.es/habbo-imaging/avatarimage?user=EventeroX&head_direction=3&size=m" },
-        { user:"Staff3", habbo:"Reporterita", rol:"Reportero", img:"https://www.habbo.es/habbo-imaging/avatarimage?user=Reporterita&head_direction=3&size=m" },
-        // ...simula más miembros aquí
+        { user:"Staff3", habbo:"Reporterita", rol:"Reportero", img:"https://www.habbo.es/habbo-imaging/avatarimage?user=Reporterita&head_direction=3&size=m" }
     ];
-
-    // --- Noticias/Equipo/Eventos render ---
     function renderNoticias() {
         let html = "";
         noticias.forEach(n => {
@@ -375,7 +432,7 @@
         document.getElementById('equipo-list').innerHTML = html;
     }
 
-    // --- Peticiones ---
+    // ========== Peticiones ========== 
     let petitions = [];
     document.getElementById('petitionForm').onsubmit = function(e) {
         e.preventDefault();
@@ -409,7 +466,7 @@
         document.getElementById('dj-petitions-list').innerHTML = html;
     }
 
-    // --- Panel DJ login/registro/session ---
+    // ========== Panel DJ login/registro/session ==========
     function showDjRegister() {
         document.getElementById('dj-login-form').style.display = "none";
         document.getElementById('dj-register-form').style.display = "block";
@@ -465,7 +522,6 @@
         if(document.getElementById('dj-panel-info').style.display === "block") updateHoraDj();
     }, 60000);
 
-    // --- Secciones DJ Panel ---
     function showPetitionsDj() {
         document.getElementById('dj-petitions-section').style.display = "";
         document.getElementById('dj-songhistory-section').style.display = "none";
@@ -477,7 +533,6 @@
         document.getElementById('dj-petitions-section').style.display = "none";
         document.getElementById('dj-stats-section').style.display = "none";
         document.getElementById('dj-tools-section').style.display = "none";
-        // Demo historial canciones
         document.getElementById('dj-songhistory-list').innerHTML = "<ul><li>Canción 1</li><li>Canción 2</li><li>Canción 3</li></ul>";
     }
     function showStatsDj() {
@@ -485,7 +540,6 @@
         document.getElementById('dj-petitions-section').style.display = "none";
         document.getElementById('dj-songhistory-section').style.display = "none";
         document.getElementById('dj-tools-section').style.display = "none";
-        // Demo stats
         document.getElementById('dj-stats-list').innerHTML = "<b>Oyentes:</b> 25 <br><b>Pico hoy:</b> 120 <br><b>Canciones:</b> 300";
     }
     function showDjTools() {
@@ -495,41 +549,18 @@
         document.getElementById('dj-stats-section').style.display = "none";
     }
 
-    // --- Panel Admin funciones demo ---
+    // ========== Panel Admin funciones demo ==========
     function showAdminTools() {
         let sec = document.getElementById('admin-tools-section');
         sec.style.display = sec.style.display === "none" ? "" : "none";
     }
 
-    // --- Player radio demo (personaliza esto con tu backend real o API radio) ---
-    let playing = false;
-    const audio = document.getElementById('player_audio');
-    document.getElementById('btnPlay').onclick = function() {
-        if(!playing) {
-            audio.play();
-            playing = true;
-            this.innerHTML = '<i class="fas fa-pause"></i>';
-        } else {
-            audio.pause();
-            playing = false;
-            this.innerHTML = '<i class="fas fa-play"></i>';
-        }
-    };
-    document.getElementById('btnMute').onclick = function() {
-        audio.muted = !audio.muted;
-        this.innerHTML = audio.muted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
-    };
-    document.getElementById('volume-slider').oninput = function() {
-        audio.volume = this.value / 100;
-    };
-
-    // --- Render inicial y login persistente DJ ---
+    // ========== Render inicial ==========
     window.onload = function() {
         renderNoticias();
         renderEventos();
         renderEquipo();
         renderPetitions();
-        // DJ login persistente
         const session = localStorage.getItem('dj_session');
         if(session) showDjPanel(session);
         else showDjLogin();
